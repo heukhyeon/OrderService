@@ -1,7 +1,5 @@
 package kr.evalon.orderservice
 
-data class Session(val key:String)
-data class StoreInfo(val name:String)
 
 data class OrderInfo(
     val code:String,
