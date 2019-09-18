@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import kr.evalon.orderservice.R
 import kr.evalon.orderservice.databinding.ActivityMainBinding
 import kr.evalon.orderservice.livedata.OrderInfosLiveData
+import kr.evalon.orderservice.livedata.debounce
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .vm = vm
         orderInfos.observe(this, Observer {
+
+        })
+        vm.moveOrder.debounce(500L).observe(this, Observer {
 
         })
     }
