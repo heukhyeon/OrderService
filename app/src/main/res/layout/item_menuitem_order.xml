@@ -17,6 +17,7 @@
         <ImageView
             android:id="@+id/imageThumbnail"
             android:layout_width="match_parent"
+            thumbnail="@{vm.imgUrl}"
             android:layout_height="match_parent"/>
         <LinearLayout
             android:id="@+id/layout_name_amount"
