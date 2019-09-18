@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="kr.evalon.orderservice.scene.order.MenuItemOrderVm" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:onClick="@{(v)->vm.clickItem()}">
+        <ImageView
+            android:id="@+id/imageThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:id="@+id/layout_name_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#55000000"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_kioskitem_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="상품 이름"
+                android:text="@{vm.name}"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/tv_kioskitem_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                tools:text="5,000 원"
+                android:text="@{vm.priceText}"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>
+
+
+
