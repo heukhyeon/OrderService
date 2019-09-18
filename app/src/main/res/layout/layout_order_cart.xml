@@ -6,10 +6,13 @@
             type="kr.evalon.orderservice.scene.order.OrderVm" />
     </data>
     <LinearLayout
+        android:id="@+id/layout_cart_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#aaffffff"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/text_cart_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="27sp"
@@ -17,10 +20,12 @@
             android:elevation="5dp"
             android:text="선택 내역"/>
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_order_cart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
         <LinearLayout
+            android:id="@+id/layout_cart_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="5dp"

@@ -26,6 +26,10 @@ class OrderActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        bind()
+    }
+
+    private fun bind() {
         val bind =
             DataBindingUtil.setContentView<ActivityOrderBinding>(this, R.layout.activity_order)
         bind.lifecycleOwner = this
@@ -53,7 +57,7 @@ class OrderActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
        if(aniPlaying) return
-        else if(const_cart.isFocusable) cartToggle(false)
+        else if(layout_order_root.isFocusable) cartToggle(false)
         else super.onBackPressed()
     }
 
@@ -82,22 +86,22 @@ class OrderActivity : AppCompatActivity() {
     private fun cartToggle(open:Boolean){
         val set = ConstraintSet()
         set.clone(this, if(open) R.layout.activity_order_cartopen else R.layout.activity_order)
-        set.applyTo(const_cart)
+        set.applyTo(layout_order_root)
         val tr = AutoTransition()
         tr.duration = 100L
         tr.addListener(onStart = {
             aniPlaying = true
             if(open) {
-                const_cart.isClickable = true
-                const_cart.isFocusable = true
+                layout_order_root.isClickable = true
+                layout_order_root.isFocusable = true
             }
         }, onEnd = {
             if(!open) {
-                const_cart.isClickable = false
-                const_cart.isFocusable = false
+                layout_order_root.isClickable = false
+                layout_order_root.isFocusable = false
             }
             aniPlaying = false
         })
-        TransitionManager.beginDelayedTransition(const_cart)
+        TransitionManager.beginDelayedTransition(layout_order_root,tr)
     }
 }

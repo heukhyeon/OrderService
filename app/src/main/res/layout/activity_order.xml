@@ -8,6 +8,7 @@
             type="kr.evalon.orderservice.scene.order.OrderVm" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_order_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -16,18 +17,15 @@
             android:layout_height="match_parent"
             android:background="#fff"
             android:orientation="vertical">
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adapter="@{vm.categoryAdapter}"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-            </LinearLayout>
+                android:adapter="@{vm.categoryAdapter}"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
             <View
+                android:id="@+id/shadow"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#333"/>
@@ -37,6 +35,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <Button
+                android:id="@+id/btn_order"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:clickable="@{vm.orderButtonClickable}"
@@ -45,20 +44,14 @@
                 android:onClick="@{(v)->vm.openCart()}"
                 android:background="@{vm.orderButtonBg}"/>
         </LinearLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/const_cart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <include
-                layout="@layout/layout_order_cart"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            layout="@layout/layout_order_cart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_not_cart" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
