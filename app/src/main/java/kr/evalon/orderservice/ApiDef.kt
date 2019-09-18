@@ -30,6 +30,11 @@ interface Api {
             sessionKey = key
         }
         fun getRestInstance(context: Context): Api {
+            val url = context.getString(R.string.api_url)
+            return getRestInstance(url)
+        }
+
+        fun getRestInstance(url: String): Api {
             val httpClient = OkHttpClient.Builder()
             httpClient.addInterceptor { chain ->
                 val request =
@@ -38,7 +43,7 @@ interface Api {
             }
             return Retrofit.Builder()
                 .client(httpClient.build())
-                .baseUrl(context.getString(R.string.api_url))
+                .baseUrl(url)
                 .build()
                 .create(Api::class.java)
         }
