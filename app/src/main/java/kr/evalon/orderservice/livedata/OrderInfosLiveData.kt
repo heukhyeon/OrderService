@@ -4,14 +4,12 @@ import android.os.Build
 import androidx.lifecycle.LiveData
 import com.google.firebase.database.*
 import kr.evalon.orderservice.OrderInfo
+import kr.evalon.orderservice.userDatabase
 
 class OrderInfosLiveData : LiveData<List<OrderInfo>>(), ValueEventListener {
 
     private val ref by lazy {
-        FirebaseDatabase.getInstance()
-            .reference
-            .child(Build.SERIAL)
-            .child("orders")
+        userDatabase.child("orders")
     }
 
     override fun onActive() {

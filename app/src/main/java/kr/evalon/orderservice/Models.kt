@@ -1,5 +1,9 @@
 package kr.evalon.orderservice
 
+import com.google.firebase.database.FirebaseDatabase
+import org.koin.core.context.GlobalContext
+import org.koin.core.parameter.parametersOf
+
 
 data class OrderInfo(
     val code:String,
@@ -28,3 +32,10 @@ data class MenuItem(
     val thumbnailUrl:String,
     val categoryCodes:List<String>
 )
+
+const val USER_KEY = "USER_KEY"
+
+val userDatabase
+get() = FirebaseDatabase.getInstance()
+    .reference
+    .child(GlobalContext.get().koin.get { parametersOf(USER_KEY) })
