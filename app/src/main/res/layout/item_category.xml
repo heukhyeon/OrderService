@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="kr.evalon.orderservice.scene.order.CategoryVm" />
+    </data>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:background="@{vm.selectedBgColor}">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_category_count"
+            android:textColor="#fff"
+            tools:text="0"
+            android:textSize="20sp"
+            android:paddingStart="5dp"
+            android:visibility="@{vm.countVisible}"
+            android:text="@{vm.countText}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="150dp"
+            android:text="@{vm.name}"
+            android:textColor="@{vm.selectedTextColor}"
+            tools:text="카테고리 이름"
+            android:gravity="center"/>
+    </FrameLayout>
+</layout>
