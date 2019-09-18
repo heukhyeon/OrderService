@@ -1,5 +1,7 @@
 package kr.evalon.orderservice.models
 
+import com.google.firebase.database.Exclude
+
 abstract class BaseItem(
     val code:String,
     val name:String,
@@ -16,7 +18,7 @@ class MenuItem(
     val thumbnailUrl:String = ""
 ): BaseItem(code, name, price, categoryCodes)
 
-class OrderItem(
+open class OrderItem(
     code:String,
     name:String,
     price:Int,
@@ -34,3 +36,13 @@ class OrderItem(
         count += item.count
     }
 }
+
+class ThumbnailOrderItem(
+    code:String,
+    name:String,
+    price:Int,
+    categoryCodes:List<String>,
+    count:Int,
+    @Exclude
+    val thumbnailUrl: String
+) : OrderItem(code, name, price, categoryCodes, count)

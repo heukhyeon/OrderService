@@ -8,8 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kr.evalon.orderservice.models.ItemCategory
 import kr.evalon.orderservice.models.OrderItem
+import kr.evalon.orderservice.models.ThumbnailOrderItem
 
-class CategoryVm(model: ItemCategory, orderItemsLiveData: LiveData<List<OrderItem>>) {
+class CategoryVm(model: ItemCategory, orderItemsLiveData: LiveData<List<ThumbnailOrderItem>>) {
     val code = model.code
     val name = model.name
     private val countLiveData = Transformations.map(orderItemsLiveData) { itemList ->

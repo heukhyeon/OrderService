@@ -22,6 +22,7 @@ class OrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val bind =
             DataBindingUtil.setContentView<ActivityOrderBinding>(this, R.layout.activity_order)
+        bind.lifecycleOwner = this
         bind.vm = vm
         bind.viewPager.adapter = viewPagerAdapter
         bind.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
