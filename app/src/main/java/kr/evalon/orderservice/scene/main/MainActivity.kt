@@ -1,4 +1,4 @@
-package kr.evalon.orderservice.scene
+package kr.evalon.orderservice.scene.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package kr.evalon.orderservice.scene
+package kr.evalon.orderservice.scene.order
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
