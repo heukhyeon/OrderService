@@ -19,11 +19,11 @@ class MenuItem(
 ): BaseItem(code, name, price, categoryCodes)
 
 open class OrderItem(
-    code:String,
-    name:String,
-    price:Int,
-    categoryCodes:List<String>,
-    count:Int
+    code:String = "",
+    name:String = "",
+    price:Int = 0,
+    categoryCodes:List<String> = emptyList(),
+    count:Int = 0
 ): BaseItem(code, name, price,categoryCodes){
 
     var count = count

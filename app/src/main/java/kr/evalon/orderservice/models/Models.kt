@@ -6,10 +6,10 @@ import org.koin.core.parameter.parametersOf
 
 
 data class OrderInfo(
-    val code:String,
-    val time:String,
-    val status: OrderStatus,
-    val items:List<OrderItem>
+    val code:String = "",
+    val time:String = "",
+    val status: OrderStatus = OrderStatus.NONE,
+    val items:List<OrderItem> = emptyList()
 )
 
 enum class OrderStatus(val message:String){

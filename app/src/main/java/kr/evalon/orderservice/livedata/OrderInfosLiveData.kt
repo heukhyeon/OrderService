@@ -26,9 +26,7 @@ class OrderInfosLiveData : LiveData<List<OrderInfo>>(), ValueEventListener {
     }
 
     override fun onDataChange(p0: DataSnapshot) {
-        val value = p0.getValue(object : GenericTypeIndicator<ArrayList<OrderInfo>>() {
-
-        })
+        val value = p0.children.map { it.getValue(OrderInfo::class.java)!! }
         postValue(value)
     }
 }

@@ -3,6 +3,7 @@ package kr.evalon.orderservice.scene.order
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.transition.addListener
@@ -14,11 +15,14 @@ import kotlinx.android.synthetic.main.activity_order.*
 import kr.evalon.orderservice.R
 import kr.evalon.orderservice.databinding.ActivityOrderBinding
 import kr.evalon.orderservice.livedata.CategoryListLiveData
+import kr.evalon.orderservice.livedata.CreateOrderLiveData
 import kr.evalon.orderservice.livedata.debounce
 import kr.evalon.orderservice.models.ItemCategory
+import kr.evalon.orderservice.models.OrderInfo
 
 class OrderActivity : AppCompatActivity() {
     private val categoryLiveData = CategoryListLiveData()
+    private val createOrderLiveData = CreateOrderLiveData()
     private val viewPagerAdapter by lazy { OrderFragmentsListAdapter(supportFragmentManager) }
     private val vm: OrderVm
         get() = ViewModelProviders.of(this).get(OrderVm::class.java)
@@ -61,6 +65,18 @@ class OrderActivity : AppCompatActivity() {
                 })
             }
             vm.cartAdapter.refresh(items)
+        })
+        vm.startOrder.debounce(100L).observe(this, Observer { startOrder() })
+        createOrderLiveData.observe(this, Observer {
+            it ?: return@Observer
+            if(it){
+                Toast.makeText(this, "주문을 완료했습니다",Toast.LENGTH_SHORT)
+                    .show()
+                finish()
+            }
+            else Toast.makeText(this,"주문을 추가하는데 실패했습니다. 잠시후 다시 시도해주세요", Toast.LENGTH_SHORT)
+                .show()
+
         })
     }
 
@@ -112,5 +128,12 @@ class OrderActivity : AppCompatActivity() {
             aniPlaying = false
         })
         TransitionManager.beginDelayedTransition(layout_order_root, tr)
+    }
+
+    private fun startOrder(){
+        if(!createOrderLiveData.sendOrder(vm.orderItemsLiveData.value ?: emptyList())){
+            Toast.makeText(this, "현재 주문을 추가중입니다. 잠시만 기다려주세요...",Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 }

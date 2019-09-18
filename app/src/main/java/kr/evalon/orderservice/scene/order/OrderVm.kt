@@ -33,11 +33,12 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
         if(enable != true) "주문할 상품이 없습니다"
         else "주문확정"
     }
-    val cartItemLiveData = Transformations.map(orderItemsLiveData) {items->
+    val cartItemLiveData: LiveData<List<CartOrderItemVm>> = Transformations.map(orderItemsLiveData) { items->
         items.map { CartOrderItemVm(it) }
     }
 
     val moveToCart = ActionLiveData()
+    val startOrder = ActionLiveData()
 
     fun addItem(item:ThumbnailOrderItem){
         val items = orderItemsLiveData.value ?: emptyList()
@@ -48,5 +49,6 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
             orderItemsLiveData.postValue(items)
         }
     }
-    fun openCart()=moveToCart.click()
+    fun openCart()= moveToCart.click()
+    fun startOrder() = startOrder.click()
 }

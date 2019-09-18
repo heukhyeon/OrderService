@@ -58,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:textSize="28sp"
+            android:onClick="@{(v)->vm.startOrder()}"
             android:background="@{vm.orderButtonBg}"
             android:clickable="@{vm.orderButtonClickable}"
             android:text="@{vm.orderAcceptText}"/>
