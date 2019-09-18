@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.livedata.ItemListLiveData
 import kr.evalon.orderservice.models.ItemCategory
+import kr.evalon.orderservice.models.OrderItem
 
 class OrderFragment : Fragment() {
 
@@ -48,6 +50,7 @@ class OrderFragment : Fragment() {
     }
 
     private fun onClickMenuItem(itemVm:MenuItemOrderVm){
+        ViewModelProviders.of(requireActivity()).get(OrderVm::class.java).addItem(itemVm.createOrderItem())
 
     }
 

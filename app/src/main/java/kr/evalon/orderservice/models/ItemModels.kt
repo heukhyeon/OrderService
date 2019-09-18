@@ -21,5 +21,16 @@ class OrderItem(
     name:String,
     price:Int,
     categoryCodes:List<String>,
-    val count:Int
-): BaseItem(code, name, price,categoryCodes)
+    count:Int
+): BaseItem(code, name, price,categoryCodes){
+
+    var count = count
+    private set(value) {
+        field = value
+    }
+
+    fun plus(item: OrderItem){
+        require(code == item.code)
+        count += item.count
+    }
+}
