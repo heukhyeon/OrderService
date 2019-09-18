@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:text="@{vm.storeName}"
             tools:text="가맹점 이름"
             android:textSize="28sp"
             android:textColor="#fff"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="직전 주문"/>
-
+            <include layout="@layout/layout_last_order" app:vm="@{vm.lastOrderInfoLiveData}"/>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.Guideline

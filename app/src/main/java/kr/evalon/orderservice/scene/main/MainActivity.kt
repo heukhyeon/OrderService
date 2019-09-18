@@ -16,15 +16,13 @@ class MainActivity : AppCompatActivity() {
 
     private val vm
         get() = ViewModelProviders.of(this).get(MainVm::class.java)
-    private val orderInfos = OrderInfosLiveData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-            .vm = vm
-        orderInfos.observe(this, Observer {
-
-        })
+        val bind =
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        bind.lifecycleOwner = this
+        bind.vm = vm
         vm.moveOrder.debounce(500L).observe(this, Observer {
             startActivity(Intent(this, OrderActivity::class.java))
         })
