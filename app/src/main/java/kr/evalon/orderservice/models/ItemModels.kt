@@ -33,7 +33,11 @@ open class OrderItem(
 
     fun plus(item: OrderItem){
         require(code == item.code)
-        count += item.count
+        plusCart(item.count)
+    }
+
+    fun plusCart(delta:Int){
+        count += delta
     }
 }
 

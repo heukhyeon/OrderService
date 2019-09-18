@@ -7,7 +7,7 @@ import kr.evalon.orderservice.models.ThumbnailOrderItem
 
 class MenuItemOrderVm(val model:MenuItem) {
     val name = model.name
-    val priceText = "${String.format("#,d",model.price)} 원"
+    val priceText = String.format("%,d 원", model.price)
     val imgUrl = model.thumbnailUrl
     val clickLiveData = ActionLiveData()
 
