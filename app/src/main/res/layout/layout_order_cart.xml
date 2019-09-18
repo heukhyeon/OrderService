@@ -58,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:textSize="28sp"
-            android:textColor="#fff"
-            android:background="@android:color/holo_blue_bright"
-            android:text="주문 확정"/>
+            android:background="@{vm.orderButtonBg}"
+            android:clickable="@{vm.orderButtonClickable}"
+            android:text="@{vm.orderAcceptText}"/>
     </LinearLayout>
 </layout>

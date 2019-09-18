@@ -18,16 +18,20 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
         if(items.isEmpty()) "상품을 먼저 선택해주세요"
         else "주문하기 (${items.sumBy { it.count }} 개 상품)"
     }
-    val orderButtonClickable: LiveData<Boolean> = Transformations.map(orderItemsLiveData){
-        it.isNotEmpty()
+    val orderButtonClickable: LiveData<Boolean> = Transformations.map(orderItemsLiveData){ items->
+        items.any { it.count > 0 }
     }
-    val orderButtonBg: LiveData<ColorDrawable> = Transformations.map(orderItemsLiveData){
-        if(it.isNotEmpty()) ColorDrawable(Color.CYAN)
+    val orderButtonBg: LiveData<ColorDrawable> = Transformations.map(orderButtonClickable){ enable ->
+        if(enable == true) ColorDrawable(Color.CYAN)
         else ColorDrawable(Color.GRAY)
     }
     val totalPriceText: LiveData<String> = Transformations.map(orderItemsLiveData){ items->
         val price =  items.sumBy { it.price * it.count }
         String.format("%,d 원", price)
+    }
+    val orderAcceptText: LiveData<String> = Transformations.map(orderButtonClickable){ enable->
+        if(enable != true) "주문할 상품이 없습니다"
+        else "주문확정"
     }
     val cartItemLiveData = Transformations.map(orderItemsLiveData) {items->
         items.map { CartOrderItemVm(it) }
