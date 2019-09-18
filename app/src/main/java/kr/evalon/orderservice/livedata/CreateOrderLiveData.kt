@@ -42,10 +42,10 @@ class CreateOrderLiveData : LiveData<Boolean>() {
         val time = Date()
         val info = OrderInfo(
             code = nextKey,
-            time = SimpleDateFormat("MM-dd hh:mm:ss", Locale.US).format(time),
+            time = SimpleDateFormat("MM-dd hh:mm:ss", Locale.KOREA).format(time),
             status = OrderStatus.NONE,
             items = items)
-        val ref = userDatabase.child("orders/${nextKey}").setValue(info)
+        val ref = userDatabase.child("orders/$nextKey").setValue(info)
         ref.addOnCompleteListener {
             sending = false
             value = it.isSuccessful
