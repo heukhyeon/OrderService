@@ -23,6 +23,7 @@ class CategoryAdapter : RecyclerView.Adapter<DataBindHolder>() {
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
         holder.bind.lifecycleOwner = holder.itemView.context as LifecycleOwner
         holder.bind.setVariable(BR.vm, buffer[position])
+        holder.bind.executePendingBindings()
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {

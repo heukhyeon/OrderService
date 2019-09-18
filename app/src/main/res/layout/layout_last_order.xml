@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="23sp"
+            android:textSize="18sp"
             android:text="@{vm.time}"
             tools:text="09-01 12:59:59"/>
         <TextView
