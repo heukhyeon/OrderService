@@ -13,10 +13,10 @@ data class OrderInfo(
 )
 
 enum class OrderStatus(val message:String){
-    NONE("주문이 처리되지 않았습니다"),
-    ACCEPT("주방에서 주문을 확인했습니다"),
-    PRINT("주방에서 주문서가 출력되었습니다"),
-    COMPLETE("주문이 서빙되었습니다")
+    NONE("처리 대기중"),
+    ACCEPT("주문 확인"),
+    PRINT("주문서 출력"),
+    COMPLETE("서빙 완료")
 }
 
 data class ItemCategory(
