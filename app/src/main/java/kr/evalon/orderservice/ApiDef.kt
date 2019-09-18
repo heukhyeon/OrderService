@@ -3,12 +3,14 @@ package kr.evalon.orderservice
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.http.Body
 import retrofit2.http.POST
 import okhttp3.OkHttpClient
 import org.koin.core.KoinComponent
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 object Login {
@@ -44,6 +46,8 @@ interface Api {
             return Retrofit.Builder()
                 .client(httpClient.build())
                 .baseUrl(url)
+                .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(Api::class.java)
         }

@@ -1,7 +1,7 @@
 package kr.evalon.orderservice
 
 import android.content.Context
-import io.reactivex.rxjava3.observers.TestObserver
+import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
