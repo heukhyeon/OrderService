@@ -5,8 +5,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
-import kr.evalon.orderservice.ItemCategory
-import kr.evalon.orderservice.userDatabase
+import kr.evalon.orderservice.models.ItemCategory
+import kr.evalon.orderservice.models.userDatabase
 
 class CategoryListLiveData : LiveData<List<ItemCategory>>(), ValueEventListener {
 

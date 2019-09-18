@@ -1,4 +1,4 @@
-package kr.evalon.orderservice
+package kr.evalon.orderservice.models
 
 import com.google.firebase.database.FirebaseDatabase
 import org.koin.core.context.GlobalContext
@@ -8,8 +8,8 @@ import org.koin.core.parameter.parametersOf
 data class OrderInfo(
     val code:String,
     val time:String,
-    val status:OrderStatus,
-    val items:List<MenuItem>
+    val status: OrderStatus,
+    val items:List<OrderItem>
 )
 
 enum class OrderStatus(val message:String){
@@ -24,14 +24,7 @@ data class ItemCategory(
     val name:String
 )
 
-data class MenuItem(
-    val code:String,
-    val name:String,
-    val price:Int,
-    val discountPrice:Int,
-    val thumbnailUrl:String,
-    val categoryCodes:List<String>
-)
+
 
 const val USER_KEY = "USER_KEY"
 

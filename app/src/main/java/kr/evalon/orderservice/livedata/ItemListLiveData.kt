@@ -5,9 +5,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
-import kr.evalon.orderservice.ItemCategory
-import kr.evalon.orderservice.MenuItem
-import kr.evalon.orderservice.userDatabase
+import kr.evalon.orderservice.models.MenuItem
+import kr.evalon.orderservice.models.userDatabase
 
 class ItemListLiveData : LiveData<List<MenuItem>>(), ValueEventListener {
 

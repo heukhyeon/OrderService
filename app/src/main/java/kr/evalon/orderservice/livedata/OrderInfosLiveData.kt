@@ -1,10 +1,9 @@
 package kr.evalon.orderservice.livedata
 
-import android.os.Build
 import androidx.lifecycle.LiveData
 import com.google.firebase.database.*
-import kr.evalon.orderservice.OrderInfo
-import kr.evalon.orderservice.userDatabase
+import kr.evalon.orderservice.models.OrderInfo
+import kr.evalon.orderservice.models.userDatabase
 
 class OrderInfosLiveData : LiveData<List<OrderInfo>>(), ValueEventListener {
 
