@@ -1,6 +1,7 @@
 package kr.evalon.orderservice.scene.order
 
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,12 +23,14 @@ class CategoryVm(model: ItemCategory, orderItemsLiveData: LiveData<List<OrderIte
         if(it > 0) View.VISIBLE
         else View.INVISIBLE
     }
-    val selectedBgColor = Transformations.map(selected){
-        if(it) Color.CYAN
-        else Color.WHITE
+    val selectedBg = Transformations.map(selected){
+        if(it) ColorDrawable(Color.CYAN)
+        else ColorDrawable(Color.WHITE)
     }
     val selectedTextColor = Transformations.map(selected){
-        if(it) Color.WHITE
+        if(it) Color.BLACK
         else Color.BLACK
     }
+
+    fun click() = selected.setValue(true)
 }

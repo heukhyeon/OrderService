@@ -1,5 +1,6 @@
 package kr.evalon.orderservice.scene.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -9,6 +10,7 @@ import kr.evalon.orderservice.R
 import kr.evalon.orderservice.databinding.ActivityMainBinding
 import kr.evalon.orderservice.livedata.OrderInfosLiveData
 import kr.evalon.orderservice.livedata.debounce
+import kr.evalon.orderservice.scene.order.OrderActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         })
         vm.moveOrder.debounce(500L).observe(this, Observer {
-
+            startActivity(Intent(this, OrderActivity::class.java))
         })
     }
 }

@@ -1,12 +1,24 @@
 package kr.evalon.orderservice.scene.order
 
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.BR
 import kr.evalon.orderservice.DataBindHolder
 import kr.evalon.orderservice.R
 
-class MenuItemOrderAdapter : RecyclerView.Adapter<DataBindHolder>() {
+class MenuItemOrderAdapter(private var owner: LifecycleOwner?) : RecyclerView.Adapter<DataBindHolder>(),
+    LifecycleObserver {
+
+
+    init {
+        val owner = requireNotNull(owner)
+        owner.lifecycle.addObserver(this)
+    }
+
     private val buffer = ArrayList<MenuItemOrderVm>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBindHolder {
@@ -19,6 +31,7 @@ class MenuItemOrderAdapter : RecyclerView.Adapter<DataBindHolder>() {
 
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
         val vm = buffer[position]
+        holder.bind.lifecycleOwner = owner
         holder.bind.setVariable(BR.vm, vm)
     }
 
@@ -26,5 +39,10 @@ class MenuItemOrderAdapter : RecyclerView.Adapter<DataBindHolder>() {
         buffer.clear()
         buffer.addAll(items)
         notifyDataSetChanged()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroyed(){
+        owner = null
     }
 }

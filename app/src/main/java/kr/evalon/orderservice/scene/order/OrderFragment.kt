@@ -13,7 +13,7 @@ import kr.evalon.orderservice.models.ItemCategory
 
 class OrderFragment : Fragment() {
 
-    private val adapter = MenuItemOrderAdapter()
+    private val adapter = MenuItemOrderAdapter(this)
     private val categoryCode by lazy {
         arguments!!.getString(CATEGORY_KEY)!!
     }
@@ -30,7 +30,7 @@ class OrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         require(view is RecyclerView)
         view.adapter = adapter
-        view.layoutManager = GridLayoutManager(requireActivity(), 4)
+        view.layoutManager = GridLayoutManager(requireActivity(), 5)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

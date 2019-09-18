@@ -20,8 +20,8 @@ enum class OrderStatus(val message:String){
 }
 
 data class ItemCategory(
-    val code:String,
-    val name:String
+    val code:String = "",
+    val name:String = ""
 )
 
 
