@@ -9,6 +9,7 @@ import kr.evalon.orderservice.models.ItemCategory
 import kr.evalon.orderservice.models.OrderItem
 
 class CategoryVm(model: ItemCategory, orderItemsLiveData: LiveData<List<OrderItem>>) {
+    val code = model.code
     val name = model.name
     private val countLiveData = Transformations.map(orderItemsLiveData) { itemList ->
         itemList ?: return@map 0

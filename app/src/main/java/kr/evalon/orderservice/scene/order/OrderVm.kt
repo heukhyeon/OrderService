@@ -8,4 +8,5 @@ import kr.evalon.orderservice.models.OrderItem
 class OrderVm(app:Application) : AndroidViewModel(app) {
     val orderItemsLiveData = MutableLiveData<List<OrderItem>>()
     val categoryAdapter = CategoryAdapter()
+
 }

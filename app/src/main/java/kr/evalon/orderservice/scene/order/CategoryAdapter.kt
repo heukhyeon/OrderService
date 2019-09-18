@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.DataBindHolder
 import kr.evalon.orderservice.R
+import kr.evalon.orderservice.models.ItemCategory
 
 class CategoryAdapter : RecyclerView.Adapter<DataBindHolder>() {
     private val buffer = ArrayList<CategoryVm>()
@@ -18,5 +19,15 @@ class CategoryAdapter : RecyclerView.Adapter<DataBindHolder>() {
 
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
 
+    }
+
+    fun indexOf(category: ItemCategory) = buffer.indexOfFirst { it.code == category.code }
+    fun selectChange(i: Int) = buffer.forEachIndexed { index, categoryVm ->
+        categoryVm.selected.value = index == i
+    }
+    fun replaceAll(items:List<CategoryVm>){
+        buffer.clear()
+        buffer.addAll(items)
+        notifyDataSetChanged()
     }
 }
