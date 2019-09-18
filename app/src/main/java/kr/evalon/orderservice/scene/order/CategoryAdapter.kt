@@ -2,6 +2,7 @@ package kr.evalon.orderservice.scene.order
 
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.BR
 import kr.evalon.orderservice.DataBindHolder
@@ -22,6 +23,12 @@ class CategoryAdapter : RecyclerView.Adapter<DataBindHolder>() {
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
         holder.bind.lifecycleOwner = holder.itemView.context as LifecycleOwner
         holder.bind.setVariable(BR.vm, buffer[position])
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context,
+            DividerItemDecoration.HORIZONTAL))
     }
 
     fun indexOf(category: ItemCategory) = buffer.indexOfFirst { it.code == category.code }
