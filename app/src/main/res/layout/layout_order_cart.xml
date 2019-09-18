@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="vm"
+            type="kr.evalon.orderservice.scene.order.OrderVm" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="27sp"
+            android:padding="8dp"
+            android:elevation="5dp"
+            android:text="선택 내역"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:minHeight="70dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textSize="28sp"
+            android:textColor="#fff"
+            android:background="@android:color/holo_blue_bright"
+            android:text="주문 확정"/>
+    </LinearLayout>
+</layout>

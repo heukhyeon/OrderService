@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.models.ThumbnailOrderItem
 
 class OrderVm(app:Application) : AndroidViewModel(app) {
@@ -22,6 +23,7 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
         if(it.isNotEmpty()) ColorDrawable(Color.CYAN)
         else ColorDrawable(Color.GRAY)
     }
+    val moveToCart = ActionLiveData()
 
     fun addItem(item:ThumbnailOrderItem){
         val items = orderItemsLiveData.value ?: emptyList()
@@ -32,4 +34,5 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
             orderItemsLiveData.postValue(items)
         }
     }
+    fun openCart()=moveToCart.click()
 }
