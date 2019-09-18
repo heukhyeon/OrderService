@@ -14,7 +14,6 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".scene.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
@@ -23,6 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".scene.OrderActivity"
+            android:theme="@style/FullscreenTheme"/>
     </application>
 
 </manifest>
