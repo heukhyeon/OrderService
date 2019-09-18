@@ -12,7 +12,7 @@ class CartOrderItemVm(val model:ThumbnailOrderItem) {
     val imgUrl = model.thumbnailUrl
     val countLiveData = MutableLiveData<Int>().apply { value = null }
     val countText: LiveData<String> = Transformations.map(countLiveData) {
-        it.toString()
+        it?.toString() ?: model.count.toString()
     }
     val priceText : String = String.format("%,d 원", model.price)
 
@@ -26,7 +26,7 @@ class CartOrderItemVm(val model:ThumbnailOrderItem) {
     }
 
     fun changeCount(delta:Int){
-        if(model.count - delta < 0) return
+        if(model.count + delta < 0) return
         model.plusCart(delta)
         countLiveData.value = model.count
     }

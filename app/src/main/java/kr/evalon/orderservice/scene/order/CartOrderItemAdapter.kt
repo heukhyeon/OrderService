@@ -1,6 +1,7 @@
 package kr.evalon.orderservice.scene.order
 
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.BR
@@ -16,6 +17,7 @@ class CartOrderItemAdapter : RecyclerView.Adapter<DataBindHolder>(){
     }
 
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
+        holder.bind.lifecycleOwner = holder.itemView.context as LifecycleOwner
         holder.bind.setVariable(BR.vm, buffer[position])
     }
 

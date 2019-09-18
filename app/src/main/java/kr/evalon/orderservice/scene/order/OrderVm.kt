@@ -26,7 +26,7 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
         else ColorDrawable(Color.GRAY)
     }
     val totalPriceText: LiveData<String> = Transformations.map(orderItemsLiveData){ items->
-        val price =  items.sumBy { it.price }
+        val price =  items.sumBy { it.price * it.count }
         String.format("%,d 원", price)
     }
     val cartItemLiveData = Transformations.map(orderItemsLiveData) {items->
