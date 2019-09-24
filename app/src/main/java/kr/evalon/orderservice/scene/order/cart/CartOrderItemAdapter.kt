@@ -2,11 +2,13 @@ package kr.evalon.orderservice.scene.order.cart
 
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.BR
 import kr.evalon.orderservice.DataBindHolder
 import kr.evalon.orderservice.R
+
+
 
 class CartOrderItemAdapter : RecyclerView.Adapter<DataBindHolder>(){
 
@@ -26,14 +28,10 @@ class CartOrderItemAdapter : RecyclerView.Adapter<DataBindHolder>(){
     }
 
     fun refresh(items:List<CartOrderItemVm>){
-        items.subtract(buffer).forEach {
-            buffer.add(it)
-            notifyItemInserted(buffer.size -1)
-        }
-        buffer.subtract(items).forEach {
-            val index = buffer.indexOf(it)
-            buffer.removeAt(index)
-            notifyItemRemoved(index)
-        }
+        val util = CartDiffUtil(buffer,items)
+        val diffResult = DiffUtil.calculateDiff(util)
+        buffer.clear()
+        buffer.addAll(items)
+        diffResult.dispatchUpdatesTo(this)
     }
 }

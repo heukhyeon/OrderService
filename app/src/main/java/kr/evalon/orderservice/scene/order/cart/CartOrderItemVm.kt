@@ -10,7 +10,7 @@ class CartOrderItemVm(val model:ThumbnailOrderItem) {
     private val code = model.code
     val name = model.name
     val imgUrl = model.thumbnailUrl
-    val countLiveData = MutableLiveData<Int>().apply { value = null }
+    val countLiveData = MutableLiveData<Int>().apply { value = model.count }
     val countText: LiveData<String> = Transformations.map(countLiveData) {
         it?.toString() ?: model.count.toString()
     }
