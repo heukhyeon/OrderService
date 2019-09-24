@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.models.ThumbnailOrderItem
+import kr.evalon.orderservice.scene.order.cart.CartOrderItemAdapter
+import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
 
 class OrderVm(app:Application) : AndroidViewModel(app) {
     val orderItemsLiveData = MutableLiveData<List<ThumbnailOrderItem>>().apply { value = emptyList() }

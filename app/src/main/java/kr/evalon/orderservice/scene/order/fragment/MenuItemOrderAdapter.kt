@@ -1,4 +1,4 @@
-package kr.evalon.orderservice.scene.order
+package kr.evalon.orderservice.scene.order.fragment
 
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle

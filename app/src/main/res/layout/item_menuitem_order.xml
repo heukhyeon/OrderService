@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="kr.evalon.orderservice.scene.order.MenuItemOrderVm" />
+            type="kr.evalon.orderservice.scene.order.fragment.MenuItemOrderVm" />
 
     </data>
 

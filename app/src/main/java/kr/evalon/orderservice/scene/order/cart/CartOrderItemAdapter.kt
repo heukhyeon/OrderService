@@ -1,4 +1,4 @@
-package kr.evalon.orderservice.scene.order
+package kr.evalon.orderservice.scene.order.cart
 
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner

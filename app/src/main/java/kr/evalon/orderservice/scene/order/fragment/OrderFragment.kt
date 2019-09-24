@@ -1,4 +1,4 @@
-package kr.evalon.orderservice.scene.order
+package kr.evalon.orderservice.scene.order.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.livedata.ItemListLiveData
 import kr.evalon.orderservice.models.ItemCategory
 import kr.evalon.orderservice.models.OrderItem
+import kr.evalon.orderservice.scene.order.OrderVm
 
 class OrderFragment : Fragment() {
 

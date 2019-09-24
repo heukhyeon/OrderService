@@ -1,4 +1,4 @@
-package kr.evalon.orderservice.scene.order
+package kr.evalon.orderservice.scene.order.cart
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData

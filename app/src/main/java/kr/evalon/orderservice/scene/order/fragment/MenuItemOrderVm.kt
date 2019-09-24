@@ -1,4 +1,4 @@
-package kr.evalon.orderservice.scene.order
+package kr.evalon.orderservice.scene.order.fragment
 
 import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.models.MenuItem
