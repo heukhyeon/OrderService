@@ -57,16 +57,6 @@ class OrderActivity : AppCompatActivity() {
         })
         categoryLiveData.observe(this, Observer(this::onChangeCategoryList))
         vm.moveToCart.debounce(100L).observe(this, Observer { cartToggle(true) })
-        vm.cartItemLiveData.observe(this, Observer { items ->
-            items.forEach { item ->
-                //Fixme 선택 목록에서 갯수 변경시 상품 목록에 반영되나, 한번 선택 목록 진입후 뒤로 돌아갔다가 상품 목록에서 갯수 변경시 선택 목록에 반영 안됨 
-                item.countLiveData.observe(this, Observer countChange@{
-                    it ?: return@countChange
-                    vm.orderItemsLiveData.value = vm.orderItemsLiveData.value
-                })
-            }
-            vm.cartAdapter.refresh(items)
-        })
         vm.startOrder.debounce(100L).observe(this, Observer { startOrder() })
         createOrderLiveData.observe(this, Observer {
             it ?: return@Observer

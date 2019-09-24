@@ -41,7 +41,7 @@ open class OrderItem(
     }
 }
 
-class ThumbnailOrderItem(
+class CartItem(
     code:String,
     name:String,
     price:Int,

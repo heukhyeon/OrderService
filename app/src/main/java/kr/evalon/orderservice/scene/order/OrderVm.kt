@@ -8,12 +8,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kr.evalon.orderservice.livedata.ActionLiveData
-import kr.evalon.orderservice.models.ThumbnailOrderItem
+import kr.evalon.orderservice.models.CartItem
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemAdapter
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
 
 class OrderVm(app:Application) : AndroidViewModel(app) {
-    val orderItemsLiveData = MutableLiveData<List<ThumbnailOrderItem>>().apply { value = emptyList() }
+    val orderItemsLiveData = MutableLiveData<List<CartItem>>().apply { value = emptyList() }
     val categoryAdapter = CategoryAdapter()
     val cartAdapter = CartOrderItemAdapter()
     val orderButtonText: LiveData<String> = Transformations.map(orderItemsLiveData){ items->
@@ -42,7 +42,7 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
     val moveToCart = ActionLiveData()
     val startOrder = ActionLiveData()
 
-    fun addItem(item:ThumbnailOrderItem){
+    fun addItem(item:CartItem){
         val items = orderItemsLiveData.value ?: emptyList()
         val target = items.find { item.code == it.code }
         if(target == null) orderItemsLiveData.setValue(items + item)

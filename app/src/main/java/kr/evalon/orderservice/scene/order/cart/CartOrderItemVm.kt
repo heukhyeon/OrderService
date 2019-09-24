@@ -1,12 +1,11 @@
 package kr.evalon.orderservice.scene.order.cart
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import kr.evalon.orderservice.models.ThumbnailOrderItem
+import kr.evalon.orderservice.models.CartItem
 
-class CartOrderItemVm(val model:ThumbnailOrderItem) {
+class CartOrderItemVm(val model:CartItem) {
     private val code = model.code
     val name = model.name
     val imgUrl = model.thumbnailUrl
