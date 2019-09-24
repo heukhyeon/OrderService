@@ -8,46 +8,42 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kr.evalon.orderservice.livedata.ActionLiveData
-import kr.evalon.orderservice.models.CartItem
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemAdapter
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
 
 class OrderVm(app:Application) : AndroidViewModel(app) {
-    val orderItemsLiveData = MutableLiveData<List<CartItem>>().apply { value = emptyList() }
+    val orderItemsLiveData = MutableLiveData<List<CartOrderItemVm>>().apply { value = emptyList() }
     val categoryAdapter = CategoryAdapter()
     val cartAdapter = CartOrderItemAdapter()
     val orderButtonText: LiveData<String> = Transformations.map(orderItemsLiveData){ items->
         if(items.isEmpty()) "상품을 먼저 선택해주세요"
-        else "주문하기 (${items.sumBy { it.count }} 개 상품)"
+        else "주문하기 (${items.sumBy { it.model.count }} 개 상품)"
     }
     val orderButtonClickable: LiveData<Boolean> = Transformations.map(orderItemsLiveData){ items->
-        items.any { it.count > 0 }
+        items.any { it.model.count > 0 }
     }
     val orderButtonBg: LiveData<ColorDrawable> = Transformations.map(orderButtonClickable){ enable ->
         if(enable == true) ColorDrawable(Color.CYAN)
         else ColorDrawable(Color.GRAY)
     }
     val totalPriceText: LiveData<String> = Transformations.map(orderItemsLiveData){ items->
-        val price =  items.sumBy { it.price * it.count }
+        val price =  items.sumBy { it.totalPrice }
         String.format("%,d 원", price)
     }
     val orderAcceptText: LiveData<String> = Transformations.map(orderButtonClickable){ enable->
         if(enable != true) "주문할 상품이 없습니다"
         else "주문확정"
     }
-    val cartItemLiveData: LiveData<List<CartOrderItemVm>> = Transformations.map(orderItemsLiveData) { items->
-        items.map { CartOrderItemVm(it) }
-    }
 
     val moveToCart = ActionLiveData()
     val startOrder = ActionLiveData()
 
-    fun addItem(item:CartItem){
+    fun addItem(item:CartOrderItemVm){
         val items = orderItemsLiveData.value ?: emptyList()
-        val target = items.find { item.code == it.code }
+        val target = items.find { item.has(it) }
         if(target == null) orderItemsLiveData.setValue(items + item)
         else {
-            target.plus(item)
+            target.changeCount(item.model.count)
             orderItemsLiveData.postValue(items)
         }
     }

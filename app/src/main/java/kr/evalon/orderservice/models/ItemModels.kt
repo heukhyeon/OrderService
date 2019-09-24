@@ -40,13 +40,3 @@ open class OrderItem(
         count += delta
     }
 }
-
-class CartItem(
-    code:String,
-    name:String,
-    price:Int,
-    categoryCodes:List<String>,
-    count:Int,
-    @Exclude
-    val thumbnailUrl: String
-) : OrderItem(code, name, price, categoryCodes, count)

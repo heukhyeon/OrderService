@@ -122,7 +122,7 @@ class OrderActivity : AppCompatActivity() {
     }
 
     private fun startOrder(){
-        if(!createOrderLiveData.sendOrder(vm.orderItemsLiveData.value ?: emptyList())){
+        if(!createOrderLiveData.sendOrder(vm.orderItemsLiveData.value?.map { it.model } ?: emptyList())){
             Toast.makeText(this, "현재 주문을 추가중입니다. 잠시만 기다려주세요...",Toast.LENGTH_SHORT)
                 .show()
         }
