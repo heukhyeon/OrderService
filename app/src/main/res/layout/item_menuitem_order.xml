@@ -52,7 +52,7 @@
             android:layout_height="40dp"
             android:layout_gravity="end"
             android:background="@drawable/bg_optionable"
-            android:visibility="@{vm.optionable}">
+            android:visibility="@{vm.optionVisible}">
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"

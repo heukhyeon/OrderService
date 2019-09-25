@@ -11,7 +11,8 @@ class MenuItemOrderVm(val model:MenuItem) {
     val priceText = String.format("%,d 원", model.price)
     val imgUrl = model.thumbnailUrl
     val clickLiveData = ActionLiveData()
-    val optionable = if(model.options.isEmpty()) View.INVISIBLE else View.VISIBLE
+    val optionEnable = model.options.isNotEmpty()
+    val optionVisible = if(optionEnable) View.VISIBLE else View.INVISIBLE
 
     fun createOrderItem() = CartOrderItemVm(OrderItem(
         code = model.code,
