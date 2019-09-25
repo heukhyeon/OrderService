@@ -4,41 +4,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/temp1"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_temp"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="글씨 1"
-        android:gravity="center"
-        android:textSize="40sp"/>
-    <TextView
-        android:id="@+id/temp2"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="글씨 2"
-        android:gravity="center"
-        android:textSize="40sp"/>
-    <TextView
-        android:id="@+id/temp3"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="글씨 3"
-        android:gravity="center"
-        android:textSize="40sp"/>
-    <TextView
-        android:id="@+id/temp4"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="글씨 4"
-        android:gravity="center"
-        android:textSize="40sp"/>
-    <TextView
-        android:id="@+id/temp5"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="글씨 5"
-        android:gravity="center"
-        android:textSize="40sp"/>
+        android:layout_height="500dp"/>
     <Button
         android:id="@+id/btn_temp"
         android:layout_width="100dp"
