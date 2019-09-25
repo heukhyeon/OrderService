@@ -6,5 +6,6 @@ class MenuItem(
     price:Int = 0,
     categoryCodes:List<String> = emptyList(),
     val discountPrice:Int = 0,
-    val thumbnailUrl:String = ""
+    val thumbnailUrl:String = "",
+    val options : List<ItemOption>
 ): BaseItem(code, name, price, categoryCodes)
