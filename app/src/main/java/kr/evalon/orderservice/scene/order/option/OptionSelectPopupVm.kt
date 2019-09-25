@@ -26,4 +26,5 @@ class OptionSelectPopupVm(app:Application, code:String) : AndroidViewModel(app) 
         it ?: return@map "상품 정보를 불러오고 있습니다..."
         it.name
     }
+    val adapter = OptionSelectAdapter()
 }

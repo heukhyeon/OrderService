@@ -58,14 +58,8 @@ class OptionSelectAdapter : DataBindAdapter(),
     }
 
     fun expandChanged(vm: OptionSelectHeaderVm, parentView: RecyclerView) {
-        buffer.forEachIndexed { index, header ->
-            val before = header.expandedLiveData.value
-            val after = header == vm
-            if (before != after) {
-                header.expandedLiveData.value = after
-                notifyItemRangeChanged(headerIndexes[index], header.childVmList.size + 1)
-            }
-        }
+        val index = buffer.indexOf(vm)
+        notifyItemRangeChanged(headerIndexes[index], vm.childVmList.size + 1)
         TransitionManager.beginDelayedTransition(parentView)
     }
 }

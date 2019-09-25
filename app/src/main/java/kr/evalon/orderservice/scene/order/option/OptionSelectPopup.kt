@@ -1,18 +1,19 @@
 package kr.evalon.orderservice.scene.order.option
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.fragment.app.DialogFragment
 import kr.evalon.orderservice.R
 import kotlin.math.roundToInt
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.databinding.PopupOptionSelectBinding
+import kr.evalon.orderservice.livedata.ItemListLiveData
+import kr.evalon.orderservice.models.MenuItem
 
 
 class OptionSelectPopup : DialogFragment() {
@@ -48,7 +49,24 @@ class OptionSelectPopup : DialogFragment() {
             .get(OptionSelectPopupVm::class.java)
         bind.lifecycleOwner = this
         bind.vm = vm
+        ItemListLiveData().observe(this, Observer(this::onReceiveItemList))
+    }
 
+    private fun onReceiveItemList(items:List<MenuItem>){
+        val code = requireNotNull(arguments?.getString(TARGET_ITEM))
+        val vm = ViewModelProviders.of(this,
+            OptionSelectPopupVm.Factory(requireActivity().application, code))
+            .get(OptionSelectPopupVm::class.java)
+        val targetItem = items.first { it.code == code }
+        val targetList: RecyclerView? = null
+        vm.adapter.replaceOptions(targetItem.options.map {option->
+            val childes = items.filter { it.code in option.targetItems }
+            val header = OptionSelectHeaderVm(option, childes)
+            header.expandedLiveData.observe(this, Observer {
+                vm.adapter.expandChanged(header, requireNotNull(targetList))
+            })
+            header
+        })
     }
 
     companion object {
