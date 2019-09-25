@@ -25,6 +25,19 @@ class OptionSelectPopup : DialogFragment() {
         return inflater.inflate(R.layout.popup_option_select, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.OptionSelectPopupStyle)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog ?: return
+        val width = (resources.displayMetrics.widthPixels * 0.9).roundToInt()
+        val height = (resources.displayMetrics.heightPixels * 0.9).roundToInt()
+        dialog.window!!.setLayout(width, height)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bind = DataBindingUtil.bind<PopupOptionSelectBinding>(view)
