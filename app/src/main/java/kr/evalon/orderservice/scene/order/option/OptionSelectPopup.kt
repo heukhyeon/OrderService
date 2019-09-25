@@ -26,7 +26,7 @@ class OptionSelectPopup : DialogFragment() {
 
     companion object {
         private const val TARGET_ITEM = "TARGET_ITEM"
-        
+
         fun newInstance(code:String): OptionSelectPopup {
             val f = OptionSelectPopup()
             val b = Bundle()

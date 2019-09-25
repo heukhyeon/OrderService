@@ -17,6 +17,7 @@ import kr.evalon.orderservice.scene.order.OrderFragmentsListAdapter
 import kr.evalon.orderservice.scene.order.OrderVm
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
 import kr.evalon.orderservice.scene.order.fragment.OrderFragment
+import kr.evalon.orderservice.scene.order.option.OptionSelectPopup
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.lang.Exception
@@ -84,6 +85,26 @@ class MainActivityTest  {
             val items = (f as OrderFragment).getAdapter().getItems()
             assertEquals(1, items.size)
             items.first().clickItem()
+        }
+        c.await(3L,TimeUnit.SECONDS)
+        scenario.onActivity {
+            val f = it.supportFragmentManager.fragments.find {fr->
+                fr.arguments?.getString(OrderFragment.CATEGORY_KEY) == categoryCode
+            }
+            val popup = f?.childFragmentManager?.fragments?.find { it is OptionSelectPopup }
+            requireNotNull(popup)
+            c.countDown()
+        }
+        c.await()
+    }
+
+    @Test
+    fun optionPopupShow(){
+        val scenario = ActivityScenario.launch(OrderActivity::class.java)
+        val c = CountDownLatch(1)
+        scenario.onActivity {
+            val popup = OptionSelectPopup.newInstance("00083")
+            popup.show(it.supportFragmentManager, popup.javaClass.canonicalName)
         }
         c.await()
     }
