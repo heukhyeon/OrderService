@@ -55,7 +55,7 @@ class OrderFragment : Fragment() {
 
     private fun onClickMenuItem(itemVm: MenuItemOrderVm) {
         if (itemVm.optionEnable) {
-            OptionSelectPopup.newInstance(itemVm).show(childFragmentManager,
+            OptionSelectPopup.newInstance(itemVm.model.code).show(childFragmentManager,
                 OptionSelectPopup::class.java.canonicalName)
         } else
             ViewModelProviders.of(requireActivity()).get(OrderVm::class.java).addItem(itemVm.createOrderItem())
