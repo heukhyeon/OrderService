@@ -5,10 +5,11 @@ import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.models.MenuItem
 import kr.evalon.orderservice.models.OrderItem
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
+import kr.evalon.orderservice.toFormattedPrice
 
 class MenuItemOrderVm(val model:MenuItem) {
     val name = model.name
-    val priceText = String.format("%,d 원", model.price)
+    val priceText = model.price.toFormattedPrice()
     val imgUrl = model.thumbnailUrl
     val clickLiveData = ActionLiveData()
     val optionEnable = model.options.isNotEmpty()

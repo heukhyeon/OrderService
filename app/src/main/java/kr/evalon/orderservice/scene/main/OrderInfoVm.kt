@@ -2,17 +2,14 @@ package kr.evalon.orderservice.scene.main
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kr.evalon.orderservice.BR
-import kr.evalon.orderservice.DataBindAdapter
-import kr.evalon.orderservice.DataBindHolder
-import kr.evalon.orderservice.R
+import kr.evalon.orderservice.*
 import kr.evalon.orderservice.models.OrderInfo
 
 class OrderInfoVm(val model:OrderInfo) {
     val time = model.time
     val status = model.status.message
     val price = model.items.sumBy { it.price }.let {
-        String.format("%,d 원", it)
+        it.toFormattedPrice()
     }
     val adapter = object : DataBindAdapter() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBindHolder {
@@ -27,7 +24,7 @@ class OrderInfoVm(val model:OrderInfo) {
             val item = model.items[position]
             holder.bind.setVariable(BR.name, item.name)
             holder.bind.setVariable(BR.count, item.count)
-            holder.bind.setVariable(BR.priceText, String.format("%,d 원", item.price))
+            holder.bind.setVariable(BR.priceText, item.price.toFormattedPrice())
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kr.evalon.orderservice.models.OrderItem
+import kr.evalon.orderservice.toFormattedPrice
 
 class CartOrderItemVm(val model:OrderItem, val imgUrl:String) {
     private val code = model.code
@@ -12,7 +13,7 @@ class CartOrderItemVm(val model:OrderItem, val imgUrl:String) {
     val countText: LiveData<String> = Transformations.map(countLiveData) {
         it?.toString() ?: model.count.toString()
     }
-    val priceText : String = String.format("%,d 원", model.price)
+    val priceText : String = model.price.toFormattedPrice()
     val totalPrice:Int
     get() = model.price * model.count
 

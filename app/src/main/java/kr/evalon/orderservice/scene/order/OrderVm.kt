@@ -11,6 +11,7 @@ import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.scene.order.cart.CartItemsLiveData
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemAdapter
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
+import kr.evalon.orderservice.toFormattedPrice
 
 class OrderVm(app:Application) : AndroidViewModel(app) {
     val orderItemsLiveData = CartItemsLiveData()
@@ -29,7 +30,7 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
     }
     val totalPriceText: LiveData<String> = Transformations.map(orderItemsLiveData){ items->
         val price =  items.sumBy { it.totalPrice }
-        String.format("%,d 원", price)
+        price.toFormattedPrice()
     }
     val orderAcceptText: LiveData<String> = Transformations.map(orderButtonClickable){ enable->
         if(enable != true) "주문할 상품이 없습니다"

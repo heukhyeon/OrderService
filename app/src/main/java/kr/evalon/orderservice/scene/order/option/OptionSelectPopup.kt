@@ -70,7 +70,6 @@ class OptionSelectPopup : DialogFragment() {
             header.selectChangedLiveData.observe(this, Observer {
                 it ?: return@Observer
                 vm.optionSelectedLiveData.value = vm.adapter.getSelectedItems()
-                println("Post! : ${vm.getTotalPrice(vm.adapter.getSelectedItems())}")
             })
             header
         })
