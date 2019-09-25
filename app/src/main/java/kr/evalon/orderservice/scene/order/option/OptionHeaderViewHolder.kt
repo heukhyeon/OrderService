@@ -17,6 +17,7 @@ class OptionHeaderViewHolder(parent:ViewGroup) : DataBindHolder(parent,R.layout.
         bind.setVariable(BR.vm, vm)
         val expanded = vm.expandedLiveData.value
         itemView.view_header_direction.rotation = if(expanded == true) 180f else 0f
+        bind.executePendingBindings()
     }
 
 }

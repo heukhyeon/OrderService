@@ -18,5 +18,6 @@ class OptionRowViewHolder(parent: ViewGroup) :
         )
         param.height = if (expanded) ViewGroup.LayoutParams.WRAP_CONTENT else 0
         itemView.layoutParams = param
+        bind.executePendingBindings()
     }
 }

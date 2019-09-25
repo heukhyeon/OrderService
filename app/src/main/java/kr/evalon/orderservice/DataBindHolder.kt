@@ -24,7 +24,7 @@ open class DataBindHolder(parent: ViewGroup, @LayoutRes id: Int) : RecyclerView.
     }
 
     fun attachWindow(){
-        holderLifeCycle.currentState = Lifecycle.State.RESUMED
+        holderLifeCycle.currentState = Lifecycle.State.STARTED
     }
 
     fun detachWindow(){
