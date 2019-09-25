@@ -1,5 +1,6 @@
 package kr.evalon.orderservice
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.widget.ImageView
@@ -21,4 +22,5 @@ object BindEx {
             .load(thumbnail)
             .into(v)
     }
+
 }

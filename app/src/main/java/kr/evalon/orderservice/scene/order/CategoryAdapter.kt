@@ -5,11 +5,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.BR
+import kr.evalon.orderservice.DataBindAdapter
 import kr.evalon.orderservice.DataBindHolder
 import kr.evalon.orderservice.R
 import kr.evalon.orderservice.models.ItemCategory
 
-class CategoryAdapter : RecyclerView.Adapter<DataBindHolder>() {
+class CategoryAdapter : DataBindAdapter() {
     private val buffer = ArrayList<CategoryVm>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBindHolder {
@@ -21,7 +22,6 @@ class CategoryAdapter : RecyclerView.Adapter<DataBindHolder>() {
     }
 
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
-        holder.bind.lifecycleOwner = holder.itemView.context as LifecycleOwner
         holder.bind.setVariable(BR.vm, buffer[position])
         holder.bind.executePendingBindings()
     }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,14 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.livedata.ItemListLiveData
 import kr.evalon.orderservice.models.ItemCategory
-import kr.evalon.orderservice.models.OrderItem
 import kr.evalon.orderservice.scene.order.OrderVm
 import kr.evalon.orderservice.scene.order.option.OptionSelectPopup
 import org.jetbrains.annotations.TestOnly
 
 class OrderFragment : Fragment() {
 
-    private val adapter = MenuItemOrderAdapter(this)
+    private val adapter = MenuItemOrderAdapter()
     private val categoryCode by lazy {
         arguments!!.getString(CATEGORY_KEY)!!
     }

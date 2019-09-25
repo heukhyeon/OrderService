@@ -10,8 +10,7 @@ class OptionRowViewHolder(parent: ViewGroup) :
     DataBindHolder(parent, R.layout.item_menuitem_option_row) {
 
 
-    fun bind(owner: LifecycleOwner, vm: OptionSelectRowVm, expanded: Boolean) {
-        bind.lifecycleOwner = owner
+    fun bind(vm: OptionSelectRowVm, expanded: Boolean) {
         bind.setVariable(BR.vm, vm)
         val param = itemView.layoutParams ?: ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,

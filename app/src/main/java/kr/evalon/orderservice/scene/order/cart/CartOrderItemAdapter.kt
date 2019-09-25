@@ -5,12 +5,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.BR
+import kr.evalon.orderservice.DataBindAdapter
 import kr.evalon.orderservice.DataBindHolder
 import kr.evalon.orderservice.R
 
 
 
-class CartOrderItemAdapter : RecyclerView.Adapter<DataBindHolder>(){
+class CartOrderItemAdapter : DataBindAdapter() {
 
     private val buffer = ArrayList<CartOrderItemVm>()
 
@@ -19,7 +20,6 @@ class CartOrderItemAdapter : RecyclerView.Adapter<DataBindHolder>(){
     }
 
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
-        holder.bind.lifecycleOwner = holder.itemView.context as LifecycleOwner
         holder.bind.setVariable(BR.vm, buffer[position])
     }
 

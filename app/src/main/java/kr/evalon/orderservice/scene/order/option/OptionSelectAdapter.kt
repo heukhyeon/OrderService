@@ -7,15 +7,12 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
+import kr.evalon.orderservice.DataBindAdapter
 import kr.evalon.orderservice.DataBindHolder
 import java.lang.IllegalStateException
 
-class OptionSelectAdapter(var owner: LifecycleOwner?) : RecyclerView.Adapter<DataBindHolder>(),
+class OptionSelectAdapter : DataBindAdapter(),
     LifecycleObserver {
-
-    init {
-        requireNotNull(owner).lifecycle.addObserver(this)
-    }
 
     private val buffer = ArrayList<OptionSelectHeaderVm>()
     private val headerIndexes = ArrayList<Int>()
@@ -38,20 +35,14 @@ class OptionSelectAdapter(var owner: LifecycleOwner?) : RecyclerView.Adapter<Dat
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
         val matchIndex = headerIndexes.indexOfFirst { it >= position }
         val header = buffer[matchIndex]
-        val owner = owner ?: return
         when (holder) {
-            is OptionHeaderViewHolder -> holder.bind(owner, header)
+            is OptionHeaderViewHolder -> holder.bind(header)
             is OptionRowViewHolder -> {
                 val item = header.childVmList[position - headerIndexes[matchIndex] - 1]
-                holder.bind(owner, item, header.expandedLiveData.value!!)
+                holder.bind(item, header.expandedLiveData.value!!)
             }
             else -> throw IllegalStateException()
         }
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private fun onDestroyed() {
-        owner = null
     }
 
     fun replaceOptions(options: List<OptionSelectHeaderVm>) {

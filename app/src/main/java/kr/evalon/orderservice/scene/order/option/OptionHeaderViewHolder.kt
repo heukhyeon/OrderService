@@ -13,8 +13,7 @@ import kr.evalon.orderservice.R
 class OptionHeaderViewHolder(parent:ViewGroup) : DataBindHolder(parent,R.layout.item_menuitem_option_header) {
 
 
-    fun bind(owner: LifecycleOwner, vm:OptionSelectHeaderVm){
-        bind.lifecycleOwner = owner
+    fun bind(vm:OptionSelectHeaderVm){
         bind.setVariable(BR.vm, vm)
         val expanded = vm.expandedLiveData.value
         itemView.view_header_direction.rotation = if(expanded == true) 180f else 0f
