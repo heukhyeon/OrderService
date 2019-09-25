@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.test.core.app.ActivityScenario
 import androidx.test.runner.AndroidJUnit4
+import junit.framework.Assert.assertEquals
+import kr.evalon.orderservice.livedata.ItemListLiveData
 import kr.evalon.orderservice.models.OrderItem
 import kr.evalon.orderservice.scene.order.OrderActivity
 import kr.evalon.orderservice.scene.order.OrderVm
@@ -42,6 +44,18 @@ class MainActivityTest  {
         }
         c.await()
         assert(c.count == 0L)
+    }
+
+    @Test
+    fun optionTest(){
+        val count = CountDownLatch(1)
+        ItemListLiveData().safeObserve {
+            val item = it.find { it.code == "00049" }
+            requireNotNull(item)
+            assert(item.options.isNotEmpty())
+            count.countDown()
+        }
+        count.await()
     }
 
     fun<T> LiveData<T>.safeObserve(func:(T)->Unit){
