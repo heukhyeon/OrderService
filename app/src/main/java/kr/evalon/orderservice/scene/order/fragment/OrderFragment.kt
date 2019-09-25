@@ -14,6 +14,7 @@ import kr.evalon.orderservice.livedata.ItemListLiveData
 import kr.evalon.orderservice.models.ItemCategory
 import kr.evalon.orderservice.models.OrderItem
 import kr.evalon.orderservice.scene.order.OrderVm
+import kr.evalon.orderservice.scene.order.option.OptionSelectPopup
 import org.jetbrains.annotations.TestOnly
 
 class OrderFragment : Fragment() {
@@ -54,7 +55,8 @@ class OrderFragment : Fragment() {
 
     private fun onClickMenuItem(itemVm: MenuItemOrderVm) {
         if (itemVm.optionEnable) {
-            Toast.makeText(requireContext(), "옵션 있는 항목", Toast.LENGTH_SHORT).show()
+            OptionSelectPopup.newInstance(itemVm).show(childFragmentManager,
+                OptionSelectPopup::class.java.canonicalName)
         } else
             ViewModelProviders.of(requireActivity()).get(OrderVm::class.java).addItem(itemVm.createOrderItem())
 
