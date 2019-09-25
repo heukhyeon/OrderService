@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.popup_option_select.*
 import kr.evalon.orderservice.databinding.PopupOptionSelectBinding
 import kr.evalon.orderservice.livedata.ItemListLiveData
 import kr.evalon.orderservice.models.MenuItem
@@ -58,12 +59,16 @@ class OptionSelectPopup : DialogFragment() {
             OptionSelectPopupVm.Factory(requireActivity().application, code))
             .get(OptionSelectPopupVm::class.java)
         val targetItem = items.first { it.code == code }
-        val targetList: RecyclerView? = null
+        val targetList = list_options
         vm.adapter.replaceOptions(targetItem.options.map {option->
             val childes = items.filter { it.code in option.targetItems }
             val header = OptionSelectHeaderVm(option, childes)
             header.expandedLiveData.observe(this, Observer {
+                if(vm.adapter.itemCount == 0) return@Observer
                 vm.adapter.expandChanged(header, requireNotNull(targetList))
+            })
+            header.selectChangedLiveData.observe(this, Observer {
+                println("Selected : "+it.model.name)
             })
             header
         })

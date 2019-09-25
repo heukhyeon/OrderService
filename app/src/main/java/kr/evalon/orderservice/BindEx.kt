@@ -23,4 +23,10 @@ object BindEx {
             .into(v)
     }
 
+    @BindingAdapter("android:tint")
+    @JvmStatic
+    fun tintNullable(v:ImageView, value:Int?){
+        value ?: return
+        v.imageTintList = ColorStateList.valueOf(value)
+    }
 }

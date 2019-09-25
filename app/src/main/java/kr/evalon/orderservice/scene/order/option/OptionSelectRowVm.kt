@@ -3,7 +3,6 @@ package kr.evalon.orderservice.scene.order.option
 import android.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.models.MenuItem
@@ -25,5 +24,7 @@ class OptionSelectRowVm(val model:MenuItem, selectGroupLiveData:MediatorLiveData
         }
     }
 
-    fun select() = selectActionLiveData.click()
+    fun select() {
+        selectActionLiveData.click()
+    }
 }

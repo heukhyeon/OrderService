@@ -103,7 +103,7 @@ class MainActivityTest  {
         val scenario = ActivityScenario.launch(OrderActivity::class.java)
         val c = CountDownLatch(1)
         scenario.onActivity {
-            val popup = OptionSelectPopup.newInstance("00088")
+            val popup = OptionSelectPopup.newInstance("00049")
             popup.show(it.supportFragmentManager, popup.javaClass.canonicalName)
         }
         c.await()
