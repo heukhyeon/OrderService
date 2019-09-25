@@ -68,6 +68,7 @@ class OptionSelectPopup : DialogFragment() {
                 vm.adapter.expandChanged(header, requireNotNull(targetList))
             })
             header.selectChangedLiveData.observe(this, Observer {
+                it ?: return@Observer
                 println("Selected : "+it.model.name)
             })
             header

@@ -19,8 +19,12 @@ open class DataBindHolder(parent: ViewGroup, @LayoutRes id: Int) : RecyclerView.
     }
     val bind = DataBindingUtil.bind<ViewDataBinding>(itemView)!!
 
+    init {
+        bind.lifecycleOwner = this
+    }
+
     fun attachWindow(){
-        holderLifeCycle.currentState = Lifecycle.State.STARTED
+        holderLifeCycle.currentState = Lifecycle.State.RESUMED
     }
 
     fun detachWindow(){

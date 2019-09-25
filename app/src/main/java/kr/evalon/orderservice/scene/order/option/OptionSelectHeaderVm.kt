@@ -7,7 +7,7 @@ import kr.evalon.orderservice.models.MenuItem
 
 class OptionSelectHeaderVm(val model:ItemOption, targetItems:List<MenuItem>) {
     val expandedLiveData = MutableLiveData<Boolean>().apply { value = false }
-    val selectChangedLiveData = MediatorLiveData<OptionSelectRowVm>()
+    val selectChangedLiveData = MediatorLiveData<OptionSelectRowVm>().apply { value = null }
     val childVmList = targetItems.map { OptionSelectRowVm(it, selectChangedLiveData) }
 
     init {
