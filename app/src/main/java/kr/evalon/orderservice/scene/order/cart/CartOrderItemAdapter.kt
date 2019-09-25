@@ -27,11 +27,16 @@ class CartOrderItemAdapter : RecyclerView.Adapter<DataBindHolder>(){
         return buffer.size
     }
 
-    fun refresh(items:List<CartOrderItemVm>){
+    fun refresh(targets:List<CartOrderItemVm>){
+        val items = removeWhenCount0(targets)
         val util = CartDiffUtil(buffer,items)
         val diffResult = DiffUtil.calculateDiff(util)
         buffer.clear()
         buffer.addAll(items)
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    private fun removeWhenCount0(items:List<CartOrderItemVm>): List<CartOrderItemVm> {
+        return items.filterNot { it.countLiveData.value == 0 }
     }
 }
