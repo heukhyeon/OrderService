@@ -8,11 +8,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kr.evalon.orderservice.livedata.ActionLiveData
+import kr.evalon.orderservice.scene.order.cart.CartItemsLiveData
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemAdapter
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
 
 class OrderVm(app:Application) : AndroidViewModel(app) {
-    val orderItemsLiveData = MutableLiveData<List<CartOrderItemVm>>().apply { value = emptyList() }
+    val orderItemsLiveData = CartItemsLiveData()
     val categoryAdapter = CategoryAdapter()
     val cartAdapter = CartOrderItemAdapter()
     val orderButtonText: LiveData<String> = Transformations.map(orderItemsLiveData){ items->

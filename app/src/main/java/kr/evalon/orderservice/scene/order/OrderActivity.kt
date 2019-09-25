@@ -56,6 +56,7 @@ class OrderActivity : AppCompatActivity() {
             }
         })
         categoryLiveData.observe(this, Observer(this::onChangeCategoryList))
+        vm.orderItemsLiveData.observe(this, Observer(vm.cartAdapter::refresh))
         vm.moveToCart.debounce(100L).observe(this, Observer { cartToggle(true) })
         vm.startOrder.debounce(100L).observe(this, Observer { startOrder() })
         createOrderLiveData.observe(this, Observer {

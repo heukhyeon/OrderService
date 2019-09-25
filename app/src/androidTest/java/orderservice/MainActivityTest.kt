@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.test.core.app.ActivityScenario
 import androidx.test.runner.AndroidJUnit4
-import kr.evalon.orderservice.models.MenuItem
 import kr.evalon.orderservice.models.OrderItem
 import kr.evalon.orderservice.scene.order.OrderActivity
 import kr.evalon.orderservice.scene.order.OrderVm
@@ -24,7 +23,7 @@ class MainActivityTest  {
     fun launchTest(){
         val count = CountDownLatch(1)
         ActivityScenario.launch(OrderActivity::class.java)
-        count.await(10L,TimeUnit.SECONDS)
+        count.await(10000L,TimeUnit.SECONDS)
     }
 
     @Test
