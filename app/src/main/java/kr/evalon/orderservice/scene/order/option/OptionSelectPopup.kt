@@ -5,10 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.fragment.app.DialogFragment
 import kr.evalon.orderservice.R
-import kr.evalon.orderservice.scene.order.fragment.MenuItemOrderVm
-import org.jetbrains.annotations.TestOnly
+import kotlin.math.roundToInt
+import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import kr.evalon.orderservice.databinding.PopupOptionSelectBinding
+
 
 class OptionSelectPopup : DialogFragment() {
 
@@ -20,8 +25,17 @@ class OptionSelectPopup : DialogFragment() {
         return inflater.inflate(R.layout.popup_option_select, container, false)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return Dialog(requireActivity(), R.style.OptionSelectPopupStyle)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val bind = DataBindingUtil.bind<PopupOptionSelectBinding>(view)
+        requireNotNull(bind)
+        val code = requireNotNull(arguments?.getString(TARGET_ITEM))
+        val vm = ViewModelProviders.of(this,
+            OptionSelectPopupVm.Factory(requireActivity().application, code))
+            .get(OptionSelectPopupVm::class.java)
+        bind.lifecycleOwner = this
+        bind.vm = vm
+
     }
 
     companion object {
