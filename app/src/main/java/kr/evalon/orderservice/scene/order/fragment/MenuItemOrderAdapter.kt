@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.BR
 import kr.evalon.orderservice.DataBindHolder
 import kr.evalon.orderservice.R
+import org.jetbrains.annotations.TestOnly
 
 class MenuItemOrderAdapter(private var owner: LifecycleOwner?) : RecyclerView.Adapter<DataBindHolder>(),
     LifecycleObserver {
@@ -40,6 +41,9 @@ class MenuItemOrderAdapter(private var owner: LifecycleOwner?) : RecyclerView.Ad
         buffer.addAll(items)
         notifyDataSetChanged()
     }
+
+    @TestOnly
+    fun getItems() : List<MenuItemOrderVm> = buffer
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroyed(){

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +14,7 @@ import kr.evalon.orderservice.livedata.ItemListLiveData
 import kr.evalon.orderservice.models.ItemCategory
 import kr.evalon.orderservice.models.OrderItem
 import kr.evalon.orderservice.scene.order.OrderVm
+import org.jetbrains.annotations.TestOnly
 
 class OrderFragment : Fragment() {
 
@@ -40,25 +42,31 @@ class OrderFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         ItemListLiveData().observe(this, Observer {
             val vmList = it
-                .filter { item-> item.categoryCodes.contains(categoryCode) }
+                .filter { item -> item.categoryCodes.contains(categoryCode) }
                 .map { item ->
-                val vm = MenuItemOrderVm(item)
-                vm.clickLiveData.observe(this, Observer { onClickMenuItem(vm) })
-                vm
-            }
+                    val vm = MenuItemOrderVm(item)
+                    vm.clickLiveData.observe(this, Observer { onClickMenuItem(vm) })
+                    vm
+                }
             adapter.replaceAll(vmList)
         })
     }
 
-    private fun onClickMenuItem(itemVm:MenuItemOrderVm){
-        ViewModelProviders.of(requireActivity()).get(OrderVm::class.java).addItem(itemVm.createOrderItem())
+    private fun onClickMenuItem(itemVm: MenuItemOrderVm) {
+        if (itemVm.optionEnable) {
+            Toast.makeText(requireContext(), "옵션 있는 항목", Toast.LENGTH_SHORT).show()
+        } else
+            ViewModelProviders.of(requireActivity()).get(OrderVm::class.java).addItem(itemVm.createOrderItem())
 
     }
 
-    companion object {
-        private const val CATEGORY_KEY = "CATEGORY"
+    @TestOnly
+    fun getAdapter() = adapter
 
-        fun newInstance(category:ItemCategory): OrderFragment {
+    companion object {
+        const val CATEGORY_KEY = "CATEGORY"
+
+        fun newInstance(category: ItemCategory): OrderFragment {
             val f = OrderFragment()
             val bundle = Bundle()
             bundle.putString(CATEGORY_KEY, category.code)
