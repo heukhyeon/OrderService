@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".scene.order.OrderActivity"
             android:theme="@style/FullscreenTheme"/>
+        <activity android:name=".scene.temp.TempActivity"/>
     </application>
 
 </manifest>
