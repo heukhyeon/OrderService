@@ -3,6 +3,8 @@ package kr.evalon.orderservice.scene.order.option
 import android.app.Application
 import androidx.lifecycle.*
 import kr.evalon.orderservice.livedata.ItemListLiveData
+import kr.evalon.orderservice.models.BaseItem
+import kr.evalon.orderservice.models.OrderItem
 
 class OptionSelectPopupVm(app:Application, code:String) : AndroidViewModel(app) {
     class Factory(val app:Application, val code:String):ViewModelProvider.Factory{
@@ -26,5 +28,22 @@ class OptionSelectPopupVm(app:Application, code:String) : AndroidViewModel(app) 
         it ?: return@map "상품 정보를 불러오고 있습니다..."
         it.name
     }
+    val optionSelectedLiveData = MutableLiveData<List<BaseItem>>().apply { value = emptyList() }
     val adapter = OptionSelectAdapter()
+    val totalPriceText:LiveData<String> = Transformations.switchMap(mainItemLiveData){ _->
+        Transformations.map(optionSelectedLiveData){
+            getTotalPrice(it)
+        }
+    }
+
+    fun getTotalPrice(it: List<BaseItem>?): String {
+        val items = it ?: emptyList()
+        if(items.isNotEmpty()) println("Selected Items : ${items.first().name}")
+        val basePrice = mainItemLiveData.value?.price ?: 0
+        val totalPrice = basePrice + items.map {
+            it.price
+        }.sum()
+        return "$totalPrice 원"
+    }
+
 }

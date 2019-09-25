@@ -69,7 +69,8 @@ class OptionSelectPopup : DialogFragment() {
             })
             header.selectChangedLiveData.observe(this, Observer {
                 it ?: return@Observer
-                println("Selected : "+it.model.name)
+                vm.optionSelectedLiveData.value = vm.adapter.getSelectedItems()
+                println("Post! : ${vm.getTotalPrice(vm.adapter.getSelectedItems())}")
             })
             header
         })

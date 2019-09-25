@@ -8,7 +8,8 @@ import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.models.MenuItem
 
 class OptionSelectRowVm(val model:MenuItem, selectGroupLiveData:MediatorLiveData<OptionSelectRowVm>) {
-    private val selectedLiveData: LiveData<Boolean> = Transformations.map(selectGroupLiveData){
+    val selectedLiveData: LiveData<Boolean> = Transformations.map(selectGroupLiveData){
+        println("Changed ! : ${model.name} : ${it == this}")
         it == this
     }
     val selectedColorLiveData: LiveData<Int> = Transformations.map(selectedLiveData) {

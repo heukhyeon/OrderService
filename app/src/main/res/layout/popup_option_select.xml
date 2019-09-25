@@ -46,12 +46,53 @@
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:adapter="@{vm.adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/button4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textSize="28sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="총 가격"
+                android:textColor="#000"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textSize="28sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:text="@{vm.totalPriceText}"
+                tools:text="50,000원"
+                android:textColor="#000"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

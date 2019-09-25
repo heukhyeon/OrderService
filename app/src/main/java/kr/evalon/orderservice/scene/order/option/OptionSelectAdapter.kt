@@ -6,6 +6,8 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.RecyclerView
 import kr.evalon.orderservice.DataBindAdapter
 import kr.evalon.orderservice.DataBindHolder
+import kr.evalon.orderservice.models.BaseItem
+import kr.evalon.orderservice.models.OrderItem
 import java.lang.IllegalStateException
 
 class OptionSelectAdapter : DataBindAdapter(),
@@ -62,4 +64,7 @@ class OptionSelectAdapter : DataBindAdapter(),
         notifyItemRangeChanged(headerIndex, size)
         TransitionManager.beginDelayedTransition(parentView)
     }
+
+    fun getSelectedItems():List<BaseItem> = buffer
+        .mapNotNull { it.selectChangedLiveData.value?.model }
 }

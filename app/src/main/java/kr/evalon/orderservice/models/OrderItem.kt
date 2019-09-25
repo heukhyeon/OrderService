@@ -5,7 +5,8 @@ open class OrderItem(
     name:String = "",
     price:Int = 0,
     categoryCodes:List<String> = emptyList(),
-    count:Int = 0
+    count:Int = 0,
+    val optionItems: List<OrderItem> = emptyList()
 ): BaseItem(code, name, price,categoryCodes){
 
     var count = count
