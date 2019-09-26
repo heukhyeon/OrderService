@@ -4,7 +4,7 @@ import androidx.collection.ArraySet
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 
-class CartItemsLiveData: MediatorLiveData<List<CartOrderItemVm>>() {
+class CartItemsLiveData : MediatorLiveData<List<CartOrderItemVm>>() {
 
     private val buffer = ArraySet<String>()
 
@@ -14,24 +14,32 @@ class CartItemsLiveData: MediatorLiveData<List<CartOrderItemVm>>() {
 
     override fun setValue(value: List<CartOrderItemVm>?) {
         super.setValue(value)
-        if(value == null){
+        if (value == null) {
             setValue(emptyList())
             return
         }
-        value.filterNot { buffer.contains(it.model.code) }
-            .forEach { item->
-                addSource(item.countLiveData){
-                    if(!buffer.contains(item.model.code)){
-                        buffer.add(item.model.code)
-                    }
-                    else {
-                        if(it <= 0){
+        value.filterNot { buffer.contains(getItemUniqueKey(it)) }
+            .forEach { item ->
+                val uniqueKey = getItemUniqueKey(item)
+                addSource(item.countLiveData) {
+                    if (!buffer.contains(uniqueKey)) {
+                        buffer.add(uniqueKey)
+                    } else {
+                        if (it <= 0) {
                             removeSource(item.countLiveData)
-                            buffer.remove(item.model.code)
+                            buffer.remove(uniqueKey)
                         }
                         setValue(this.value)
                     }
                 }
             }
     }
+
+    private fun getItemUniqueKey(item: CartOrderItemVm): String {
+        return "main:${item.model.code}/${item.model.optionItems.joinToString("/") {
+            it.code
+        }}"
+    }
+
+
 }
