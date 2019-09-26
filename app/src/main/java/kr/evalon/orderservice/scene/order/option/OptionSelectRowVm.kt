@@ -8,13 +8,14 @@ import androidx.lifecycle.Transformations
 import com.bumptech.glide.RequestBuilder
 import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.models.MenuItem
+import kr.evalon.orderservice.toFormattedPrice
 
 class OptionSelectRowVm(val model:MenuItem, selectGroupLiveData:MediatorLiveData<OptionSelectRowVm>) {
     private val selectedLiveData: LiveData<Boolean> = Transformations.map(selectGroupLiveData){
         it == this
     }
     private val selectActionLiveData = ActionLiveData()
-
+    val priceText = model.price.toFormattedPrice()
     val selectedColorLiveData: LiveData<Int> = Transformations.map(selectedLiveData) {
         it ?: return@map Color.BLACK
         if(it) return@map Color.GREEN else return@map Color.BLACK

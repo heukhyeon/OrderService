@@ -18,18 +18,35 @@
             android:layout_height="60dp"
             tools:src="#000"
             customImgBuilder="@{vm::createOptionThumbnail}"/>
-       <TextView
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:maxLines="1"
-           android:ellipsize="end"
-           android:layout_weight="1"
-           android:layout_marginStart="10dp"
-           android:layout_gravity="center_vertical"
-           android:text="@{vm.model.name}"
-           android:textColor="#000"
-           tools:text="옵션 카테고리 이름"
-           android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:text="@{vm.model.name}"
+                android:textColor="#000"
+                tools:text="옵션 항목 이름"
+                android:textSize="16sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:text="@{vm.priceText}"
+                android:textColor="#444"
+                tools:text="옵션 추가 비용"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/view_accept"
             android:layout_width="40dp"
