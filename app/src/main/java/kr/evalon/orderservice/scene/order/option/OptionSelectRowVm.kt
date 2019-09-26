@@ -1,9 +1,11 @@
 package kr.evalon.orderservice.scene.order.option
 
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
+import com.bumptech.glide.RequestBuilder
 import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.models.MenuItem
 
@@ -27,5 +29,10 @@ class OptionSelectRowVm(val model:MenuItem, selectGroupLiveData:MediatorLiveData
 
     fun select() {
         selectActionLiveData.click()
+    }
+
+    fun createOptionThumbnail(requestBuilder: RequestBuilder<Drawable>): RequestBuilder<Drawable> {
+        return requestBuilder.load(model.thumbnailUrl)
+            .circleCrop()
     }
 }

@@ -40,7 +40,6 @@ class OptionSelectAdapter : DataBindAdapter(),
             else -> headerIndexes[matchIndex]
         }
         val header = buffer[realIndex]
-        println("Pos : $position / index 1 : $realIndex /index 2 : ${headerIndexes[realIndex]}, headrs : ${headerIndexes.joinToString()}")
         when (holder) {
             is OptionHeaderViewHolder -> holder.bind(header)
             is OptionRowViewHolder -> {

@@ -3,12 +3,18 @@ package kr.evalon.orderservice
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 
 object BindEx {
+
+    interface GlideListener{
+        fun create(request:RequestBuilder<Drawable>):RequestBuilder<Drawable>
+    }
 
     @BindingAdapter("thumbnail")
     @JvmStatic
@@ -28,6 +34,13 @@ object BindEx {
     @JvmStatic
     fun activated(v:View, activated:Boolean){
         v.isActivated = activated
+    }
+
+    @BindingAdapter("customImgBuilder")
+    @JvmStatic
+    fun imgCustom(v:ImageView,createFunc:GlideListener?){
+        createFunc ?: return
+        createFunc.create(Glide.with(v).asDrawable()).into(v)
     }
 
     @BindingAdapter("android:tint")
