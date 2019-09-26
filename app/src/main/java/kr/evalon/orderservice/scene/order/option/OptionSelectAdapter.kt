@@ -32,9 +32,15 @@ class OptionSelectAdapter : DataBindAdapter(),
     }
 
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
-        val matchIndex = headerIndexes.indexOfFirst { it >= position }
-        val realIndex = if(matchIndex != -1) matchIndex else headerIndexes.last()
+        super.onBindViewHolder(holder,position)
+        val matchIndex = headerIndexes.indexOfFirst { it > position } - 1
+        val realIndex = when(matchIndex){
+            -1 -> 0
+            -2 -> headerIndexes.lastIndex
+            else -> headerIndexes[matchIndex]
+        }
         val header = buffer[realIndex]
+        println("Pos : $position / index 1 : $realIndex /index 2 : ${headerIndexes[realIndex]}, headrs : ${headerIndexes.joinToString()}")
         when (holder) {
             is OptionHeaderViewHolder -> holder.bind(header)
             is OptionRowViewHolder -> {

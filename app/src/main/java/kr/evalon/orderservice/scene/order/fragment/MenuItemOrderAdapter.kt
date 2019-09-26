@@ -24,6 +24,7 @@ class MenuItemOrderAdapter : DataBindAdapter(){
 
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
         val vm = buffer[position]
+        super.onBindViewHolder(holder,position)
         holder.bind.setVariable(BR.vm, vm)
     }
 

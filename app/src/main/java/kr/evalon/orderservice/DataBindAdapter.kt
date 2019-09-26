@@ -1,24 +1,35 @@
 package kr.evalon.orderservice
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class DataBindAdapter : RecyclerView.Adapter<DataBindHolder>() {
+abstract class DataBindAdapter : RecyclerView.Adapter<DataBindHolder>(), LifecycleOwner {
+    private val registry = LifecycleRegistry(this)
 
-    override fun onViewDetachedFromWindow(holder: DataBindHolder) {
-        super.onViewDetachedFromWindow(holder)
-        holder.detachWindow()
-        println("Detached !")
+    init {
+        registry.currentState = Lifecycle.State.INITIALIZED
     }
 
-    override fun onViewAttachedToWindow(holder: DataBindHolder) {
-        super.onViewAttachedToWindow(holder)
-        holder.attachWindow()
-        println("Attached !")
-    }
-
-    //notifyItemChanged 호출시 itemAnimator 가 존재하면 라이프사이클이 꼬인다.
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         recyclerView.itemAnimator = null
+        registry.currentState = Lifecycle.State.STARTED
     }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        registry.currentState = Lifecycle.State.DESTROYED
+        super.onDetachedFromRecyclerView(recyclerView)
+    }
+
+    override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
+        holder.bind.lifecycleOwner = this
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return registry
+    }
+
+
 }

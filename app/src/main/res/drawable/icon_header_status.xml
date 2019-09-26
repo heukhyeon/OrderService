@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_activated="true">
+        <bitmap android:src="@drawable/icon_select_complete" android:tint="#0a0"/>
+    </item>
+    <item>
+        <bitmap android:src="@drawable/icon_select_require" android:tint="#a00"/>
+    </item>
+</selector>

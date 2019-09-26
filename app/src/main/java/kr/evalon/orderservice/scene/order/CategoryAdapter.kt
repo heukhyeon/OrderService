@@ -22,6 +22,7 @@ class CategoryAdapter : DataBindAdapter() {
     }
 
     override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
+        super.onBindViewHolder(holder,position)
         holder.bind.setVariable(BR.vm, buffer[position])
         holder.bind.executePendingBindings()
     }

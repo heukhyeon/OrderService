@@ -22,6 +22,7 @@ class OrderInfoVm(val model:OrderInfo) {
 
         override fun onBindViewHolder(holder: DataBindHolder, position: Int) {
             val item = model.items[position]
+            super.onBindViewHolder(holder,position)
             holder.bind.setVariable(BR.name, item.name)
             holder.bind.setVariable(BR.count, item.count)
             holder.bind.setVariable(BR.priceText, item.price.toFormattedPrice())

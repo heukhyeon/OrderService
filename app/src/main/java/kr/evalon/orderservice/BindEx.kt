@@ -3,6 +3,7 @@ package kr.evalon.orderservice
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -21,6 +22,12 @@ object BindEx {
         Glide.with(v)
             .load(thumbnail)
             .into(v)
+    }
+
+    @BindingAdapter("android:activated")
+    @JvmStatic
+    fun activated(v:View, activated:Boolean){
+        v.isActivated = activated
     }
 
     @BindingAdapter("android:tint")

@@ -12,26 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 open class DataBindHolder(parent: ViewGroup, @LayoutRes id: Int) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(id, parent, false)
-),
-    LifecycleOwner {
-    private val holderLifeCycle = LifecycleRegistry(this).apply {
-        currentState = Lifecycle.State.INITIALIZED
-    }
+) {
+
     val bind = DataBindingUtil.bind<ViewDataBinding>(itemView)!!
 
-    init {
-        bind.lifecycleOwner = this
-    }
-
-    fun attachWindow(){
-        holderLifeCycle.currentState = Lifecycle.State.STARTED
-    }
-
-    fun detachWindow(){
-        holderLifeCycle.currentState = Lifecycle.State.DESTROYED
-    }
-
-    override fun getLifecycle(): Lifecycle {
-        return holderLifeCycle
-    }
 }
