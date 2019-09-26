@@ -25,6 +25,13 @@ open class OrderItem(
     val finalPrice : Int
     get() = (optionItems.map { it.finalPrice }.sum() + price) * count
 
+    override fun equals(other: Any?): Boolean {
+        return other is OrderItem &&
+                other.code == code &&
+                other.name == name &&
+                other.optionItems == optionItems
+    }
+
     fun plus(item: OrderItem){
         require(code == item.code)
         plusCart(item.count)

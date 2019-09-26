@@ -41,7 +41,7 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
 
     fun addItem(item:CartOrderItemVm){
         val items = orderItemsLiveData.value ?: emptyList()
-        val target = items.find { item.has(it) }
+        val target = items.find { item == it }
         if(target == null) orderItemsLiveData.setValue(items + item)
         else {
             target.changeCount(item.model.count)
