@@ -22,6 +22,9 @@ open class OrderItem(
         field = value
     }
 
+    val finalPrice : Int
+    get() = (optionItems.map { it.finalPrice }.sum() + price) * count
+
     fun plus(item: OrderItem){
         require(code == item.code)
         plusCart(item.count)

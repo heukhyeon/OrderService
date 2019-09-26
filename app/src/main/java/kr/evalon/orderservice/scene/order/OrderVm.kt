@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.scene.order.cart.CartItemsLiveData
@@ -29,7 +28,7 @@ class OrderVm(app:Application) : AndroidViewModel(app) {
         else ColorDrawable(Color.GRAY)
     }
     val totalPriceText: LiveData<String> = Transformations.map(orderItemsLiveData){ items->
-        val price =  items.sumBy { it.totalPrice }
+        val price =  items.sumBy { it.model.finalPrice }
         price.toFormattedPrice()
     }
     val orderAcceptText: LiveData<String> = Transformations.map(orderButtonClickable){ enable->

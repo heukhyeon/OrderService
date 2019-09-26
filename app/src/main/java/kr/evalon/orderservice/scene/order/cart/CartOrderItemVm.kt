@@ -13,9 +13,7 @@ class CartOrderItemVm(val model:OrderItem, val imgUrl:String) {
     val countText: LiveData<String> = Transformations.map(countLiveData) {
         it?.toString() ?: model.count.toString()
     }
-    val priceText : String = model.price.toFormattedPrice()
-    val totalPrice:Int
-    get() = model.price * model.count
+    val priceText : String = model.finalPrice.toFormattedPrice()
 
     fun has(vm:CartOrderItemVm) = model.code == vm.model.code
 

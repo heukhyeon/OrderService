@@ -11,7 +11,7 @@
         android:id="@+id/layout_cart_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#aaffffff"
+        android:background="#eeffffff"
         android:orientation="vertical">
         <TextView
             android:id="@+id/text_cart_title"
