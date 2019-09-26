@@ -14,6 +14,9 @@ class OptionSelectHeaderVm(val model:ItemOption, targetItems:List<MenuItem>) {
     val selectCompleted: LiveData<Boolean> = Transformations.map(selectChangedLiveData){
         it != null
     }
+    val selectedItemText: LiveData<String> = Transformations.map(selectChangedLiveData){
+        it?.model?.name ?: ""
+    }
 
     init {
         val codes = targetItems.map { it.code }.sorted()
