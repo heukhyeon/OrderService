@@ -2,6 +2,7 @@ package kr.evalon.orderservice.scene.order.option
 
 import android.app.Application
 import androidx.lifecycle.*
+import kr.evalon.orderservice.livedata.ActionLiveData
 import kr.evalon.orderservice.livedata.ItemListLiveData
 import kr.evalon.orderservice.models.BaseItem
 import kr.evalon.orderservice.toFormattedPrice
@@ -40,5 +41,9 @@ class OptionSelectPopupVm(app:Application, code:String) : AndroidViewModel(app) 
             totalPrice.toFormattedPrice()
         }
     }
+    val actionCompleteSelect = ActionLiveData()
 
+    fun completeOptionSelect(){
+        actionCompleteSelect.click()
+    }
 }

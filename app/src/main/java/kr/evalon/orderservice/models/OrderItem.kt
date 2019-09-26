@@ -9,6 +9,14 @@ open class OrderItem(
     val optionItems: List<OrderItem> = emptyList()
 ): BaseItem(code, name, price,categoryCodes){
 
+    constructor(item:BaseItem, options:List<OrderItem> = emptyList()):this(
+        item.code,
+        item.name,
+        item.price,
+        item.categoryCodes,
+        1,
+        options)
+
     var count = count
     private set(value) {
         field = value

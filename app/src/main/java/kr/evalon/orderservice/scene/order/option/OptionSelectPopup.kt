@@ -4,17 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import kr.evalon.orderservice.R
 import kotlin.math.roundToInt
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.popup_option_select.*
 import kr.evalon.orderservice.databinding.PopupOptionSelectBinding
 import kr.evalon.orderservice.livedata.ItemListLiveData
+import kr.evalon.orderservice.livedata.debounce
 import kr.evalon.orderservice.models.MenuItem
+import kr.evalon.orderservice.models.OrderItem
+import kr.evalon.orderservice.scene.order.OrderVm
+import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
 
 
 class OptionSelectPopup : DialogFragment() {
@@ -51,6 +55,9 @@ class OptionSelectPopup : DialogFragment() {
         bind.lifecycleOwner = this
         bind.vm = vm
         ItemListLiveData().observe(this, Observer(this::onReceiveItemList))
+        vm.actionCompleteSelect.debounce(200L).observe(this, Observer {
+            onSelectComplete()
+        })
     }
 
     private fun onReceiveItemList(items:List<MenuItem>){
@@ -73,6 +80,22 @@ class OptionSelectPopup : DialogFragment() {
             })
             header
         })
+    }
+
+    private fun onSelectComplete(){
+        val vm = ViewModelProviders.of(this).get(OptionSelectPopupVm::class.java)
+        val notComplete = vm.adapter.getHeaders().find { it.selectChangedLiveData.value == null }
+        if(notComplete != null){
+            Toast.makeText(requireActivity(), "${notComplete.model.name} 항목을 선택해주세요",
+                Toast.LENGTH_SHORT).show()
+            return
+        }
+        val childes = vm.adapter.getSelectedItems()
+        val mainItem = requireNotNull(vm.mainItemLiveData.value)
+        val resultOrderItem = OrderItem(mainItem, childes.map { OrderItem(it)})
+        ViewModelProviders.of(requireActivity()).get(OrderVm::class.java)
+            .addItem(CartOrderItemVm(resultOrderItem, mainItem.thumbnailUrl))
+        dismiss()
     }
 
     companion object {

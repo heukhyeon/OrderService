@@ -70,6 +70,8 @@ class OptionSelectAdapter : DataBindAdapter(),
         notifyItemRangeChanged(headerIndex, size)
     }
 
+    fun getHeaders() : List<OptionSelectHeaderVm> = buffer
+
     fun getSelectedItems():List<BaseItem> = buffer
         .mapNotNull { it.selectChangedLiveData.value?.model }
 }
