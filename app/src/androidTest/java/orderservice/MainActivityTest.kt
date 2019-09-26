@@ -3,6 +3,7 @@ package orderservice
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
@@ -18,6 +19,7 @@ import kr.evalon.orderservice.scene.order.OrderVm
 import kr.evalon.orderservice.scene.order.cart.CartOrderItemVm
 import kr.evalon.orderservice.scene.order.fragment.OrderFragment
 import kr.evalon.orderservice.scene.order.option.OptionSelectPopup
+import kr.evalon.orderservice.scene.order.option.OptionSelectPopupVm
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.lang.Exception
@@ -109,6 +111,29 @@ class MainActivityTest  {
         c.await()
     }
 
+    @Test
+    fun optionCreateAndShowCart(){
+        val scenario = ActivityScenario.launch(OrderActivity::class.java)
+        val popup = OptionSelectPopup.newInstance("00049")
+        val c = CountDownLatch(1)
+        scenario.onActivity {
+            popup.show(it.supportFragmentManager, popup.javaClass.canonicalName)
+        }
+        c.await(3L,TimeUnit.SECONDS)
+        scenario.onActivity { activity->
+            val vm = ViewModelProviders.of(popup).get(OptionSelectPopupVm::class.java)
+            vm.mainItemLiveData.observe(popup, Observer {
+                vm.adapter.getHeaders().forEach { header->
+                    header.selectChangedLiveData.value = header.childVmList.first()
+                }
+                vm.completeOptionSelect()
+                val activityVm = ViewModelProviders.of(activity).get(OrderVm::class.java)
+                activityVm.openCart()
+            })
+        }
+
+        c.await()
+    }
     fun<T> LiveData<T>.safeObserve(func:(T)->Unit){
         Handler(Looper.getMainLooper()).post {
             observeForever(func)
