@@ -114,26 +114,69 @@ class MainActivityTest  {
     @Test
     fun optionCreateAndShowCart(){
         val scenario = ActivityScenario.launch(OrderActivity::class.java)
+        val c = CountDownLatch(1)
+        createOption(scenario)
+        c.await(1L,TimeUnit.SECONDS)
+        createOption(scenario)
+        c.await(1L,TimeUnit.SECONDS)
+        scenario.onActivity {
+            val vm = ViewModelProviders.of(it).get(OrderVm::class.java)
+            vm.openCart()
+        }
+        c.await()
+    }
+
+    @Test
+    fun optionCreateThird(){
+        val scenario = ActivityScenario.launch(OrderActivity::class.java)
+        val c = CountDownLatch(1)
+        repeat(3){
+            println("Test : $it")
+            createOption(scenario)
+            c.await(500L,TimeUnit.MILLISECONDS)
+        }
+        scenario.onActivity {
+            val vm = ViewModelProviders.of(it).get(OrderVm::class.java)
+            vm.openCart()
+        }
+        c.await()
+    }
+
+    @Test
+    fun optionCreateDifferent(){
+        val scenario = ActivityScenario.launch(OrderActivity::class.java)
+        val c = CountDownLatch(1)
+        val case1 = listOf(0,0,0)
+        val case2 = listOf(0,1,0)
+        repeat(3){
+            createOption(scenario, if(it == 1) case2 else case1)
+            c.await(500L,TimeUnit.MILLISECONDS)
+        }
+        scenario.onActivity {
+            val vm = ViewModelProviders.of(it).get(OrderVm::class.java)
+            vm.openCart()
+        }
+        c.await()
+    }
+
+    private fun createOption(scenario: ActivityScenario<OrderActivity>, selectIndex:List<Int> = listOf(0,0,0)) {
         val popup = OptionSelectPopup.newInstance("00049")
         val c = CountDownLatch(1)
         scenario.onActivity {
             popup.show(it.supportFragmentManager, popup.javaClass.canonicalName)
         }
-        c.await(3L,TimeUnit.SECONDS)
-        scenario.onActivity { activity->
+        c.await(3L, TimeUnit.SECONDS)
+        scenario.onActivity {
             val vm = ViewModelProviders.of(popup).get(OptionSelectPopupVm::class.java)
             vm.mainItemLiveData.observe(popup, Observer {
-                vm.adapter.getHeaders().forEach { header->
-                    header.selectChangedLiveData.value = header.childVmList.first()
+                vm.adapter.getHeaders().forEachIndexed { index,header ->
+                    header.selectChangedLiveData.value = header.childVmList[selectIndex[index]]
                 }
                 vm.completeOptionSelect()
-                val activityVm = ViewModelProviders.of(activity).get(OrderVm::class.java)
-                activityVm.openCart()
             })
         }
-
-        c.await()
     }
+
     fun<T> LiveData<T>.safeObserve(func:(T)->Unit){
         Handler(Looper.getMainLooper()).post {
             observeForever(func)
