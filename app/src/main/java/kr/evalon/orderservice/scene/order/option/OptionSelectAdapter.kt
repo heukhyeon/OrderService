@@ -37,8 +37,9 @@ class OptionSelectAdapter : DataBindAdapter(),
         val realIndex = when(matchIndex){
             -1 -> 0
             -2 -> headerIndexes.lastIndex
-            else -> headerIndexes[matchIndex]
+            else -> matchIndex
         }
+        println("bind : $position / $matchIndex / $realIndex")
         val header = buffer[realIndex]
         when (holder) {
             is OptionHeaderViewHolder -> holder.bind(header)
@@ -67,7 +68,6 @@ class OptionSelectAdapter : DataBindAdapter(),
         val headerIndex = headerIndexes[index]
         val size = vm.childVmList.size + 1
         notifyItemRangeChanged(headerIndex, size)
-        TransitionManager.beginDelayedTransition(parentView)
     }
 
     fun getSelectedItems():List<BaseItem> = buffer
